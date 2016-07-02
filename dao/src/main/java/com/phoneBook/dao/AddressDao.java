@@ -10,11 +10,11 @@ public interface AddressDao {
 
     public void update(Address user) throws DataBaseException;
 
-    public Address findById(int id);
+    public Address findById(int id) throws DataBaseException;
 
-    public int delete(Address user);
+    public void delete(Address user) throws DataBaseException;
 
-    public Set<Address> findAll();
+    public Set<Address> findAll() throws DataBaseException;
 
-    public int deleteAll();
+    public void deleteAll() throws DataBaseException;
 }

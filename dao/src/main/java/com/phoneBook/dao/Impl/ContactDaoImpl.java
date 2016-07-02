@@ -1,8 +1,8 @@
 package com.phoneBook.dao.Impl;
 
-import com.phoneBook.dao.AddressDao;
+
+import com.phoneBook.dao.ContactDao;
 import com.phoneBook.dao.DataBaseException;
-import com.phoneBook.model.Address;
 import com.phoneBook.model.Contact;
 import com.phoneBook.model.Lang;
 import com.phoneBook.model.User;
@@ -16,18 +16,17 @@ import org.hibernate.cfg.Configuration;
 import java.util.HashSet;
 import java.util.Set;
 
-public class AddressDaoImpl implements AddressDao{
-
-    private static final Logger LOG = Logger.getLogger(AddressDao.class);
-    private static String FIND_ALL = "from Address";
-    private static String DELETE__ALL = "delete from Address";
+public class ContactDaoImpl {
+    private static final Logger LOG = Logger.getLogger(ContactDao.class);
+    private static String FIND_ALL = "from com.phoneBook.model.Contact";
+    private static String DELETE__ALL = "delete from com.phoneBook.model.Contact";
 
     private Session currentSession;
     private Transaction currentTransaction;
 
     private static SessionFactory getSessionFactory(){
         Configuration configuration = new Configuration().configure();
-        configuration.addAnnotatedClass(Address.class);
+        configuration.addAnnotatedClass(Contact.class);
         configuration.addAnnotatedClass(Contact.class);
         configuration.addAnnotatedClass(Lang.class);
         configuration.addAnnotatedClass(User.class);
@@ -62,9 +61,9 @@ public class AddressDaoImpl implements AddressDao{
         return currentSession;
     }
 
-    public void persist(Address address) throws DataBaseException {
+    public void persist(Contact contact) throws DataBaseException {
         if(getCurrentSession()!=null) {
-            getCurrentSession().save(address);
+            getCurrentSession().save(contact);
         }
         else {
             LOG.error("Session does not opened");
@@ -72,9 +71,9 @@ public class AddressDaoImpl implements AddressDao{
         }
     }
 
-    public void update(Address address) throws DataBaseException {
+    public void update(Contact contact) throws DataBaseException {
         if(getCurrentSession()!=null) {
-            getCurrentSession().update(address);
+            getCurrentSession().update(contact);
         }
         else {
             LOG.error("Session does not opened");
@@ -82,9 +81,9 @@ public class AddressDaoImpl implements AddressDao{
         }
     }
 
-    public Address findById(int id) throws DataBaseException {
+    public Contact findById(int id) throws DataBaseException {
         if(getCurrentSession()!=null) {
-            return getCurrentSession().get(Address.class, id);
+            return getCurrentSession().get(Contact.class, id);
         }
         else {
             LOG.error("Session does not opened");
@@ -92,9 +91,9 @@ public class AddressDaoImpl implements AddressDao{
         }
     }
 
-    public void delete(Address address) throws DataBaseException {
+    public void delete(Contact contact) throws DataBaseException {
         if(getCurrentSession()!=null) {
-            getCurrentSession().delete(address);
+            getCurrentSession().delete(contact);
         }
         else {
             LOG.error("Session does not opened");
@@ -102,9 +101,9 @@ public class AddressDaoImpl implements AddressDao{
         }
     }
 
-    public Set<Address> findAll() throws DataBaseException {
+    public Set<Contact> findAll() throws DataBaseException {
         if(getCurrentSession()!=null) {
-            return new HashSet<Address>(getCurrentSession().createQuery(FIND_ALL).list());
+            return new HashSet<Contact>(getCurrentSession().createQuery(FIND_ALL).list());
         }
         else {
             LOG.error("Session does not opened");
