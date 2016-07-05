@@ -3,7 +3,7 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
     http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
-    <context:component-scan base-package="com.phoneBook.dao" />
+    <context:component-scan base-package="com.phoneBook.dao.Impl" />
         <bean id="myDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
             <property name="driverClassName" value="org.postgresql.Driver" />
             <property name="url" value="jdbc:postgresql://localhost:5432/postgres?currentSchema=phoneBook" />
@@ -15,9 +15,10 @@
         <bean id="mySessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
             <property name="dataSource" ref="myDataSource"/>
             <property name="hibernateProperties">
-                <value>
-                    hibernate.dialect=org.hibernate.dialect.PostgreSQL94Dialect
-                </value>
+                <props>
+                    <prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQL94Dialect</prop>
+                    <prop key="hibernate.show_sql">true</prop>
+                </props>
             </property>
             <property name="annotatedClasses">
                 <list>
@@ -28,7 +29,4 @@
                 </list>
             </property>
         </bean>
-        <!--<bean  id="myProductDao" class="com.phoneBook.dao.Impl.AddressDaoImpl">-->
-            <!--<property name="sessionFactoryBean" ref="mySessionFactory"/>-->
-        <!--</bean>-->
 </beans>

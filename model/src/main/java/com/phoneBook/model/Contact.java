@@ -2,21 +2,22 @@ package com.phoneBook.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 @Entity
-@Table(name="phoneBook.contact")
+@Table(name="contact", schema = "phoneBook")
 public class Contact implements Serializable {
     @Id
     @Column(name = "id")
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer id;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "address", nullable = true)
+    @JoinColumn(name = "address", nullable = true, referencedColumnName = "id")
     private Address address;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "creator_id", nullable = false)
+    @JoinColumn(name = "creator_id", nullable = false, referencedColumnName = "id")
     private User creator;
 
     @Column(name = "first_name")
@@ -34,6 +35,9 @@ public class Contact implements Serializable {
     @Column(name = "email")
     private String email;
 
+    @Column(name = "date_creating")
+    private Date dateCreating;
+
     public Contact() {
     }
 
@@ -41,8 +45,8 @@ public class Contact implements Serializable {
     public String toString() {
         return "Contact{" +
                 "id=" + id +
-                "| address=" + address +
-                "| creator=" + creator +
+                "| address=" + address.getStreetsName() +
+                "| creator=" + creator.getUserName() +
                 "| firstName='" + firstName + '\'' +
                 "| lastName='" + lastName + '\'' +
                 "| mobilPhone='" + mobilPhone + '\'' +
@@ -65,14 +69,6 @@ public class Contact implements Serializable {
 
     public void setAddress(Address address) {
         this.address = address;
-    }
-
-    public User getCreator_id() {
-        return creator;
-    }
-
-    public void setCreator_id(User creator) {
-        this.creator = creator;
     }
 
     public String getFirstName() {
@@ -114,4 +110,22 @@ public class Contact implements Serializable {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public Date getDateCreating() {
+        return dateCreating;
+    }
+
+    public void setDateCreating(Date dateCreating) {
+        this.dateCreating = dateCreating;
+    }
+
+    public User getCreator() {
+        return creator;
+    }
+
+    public void setCreator(User creator) {
+        this.creator = creator;
+    }
+
+
 }

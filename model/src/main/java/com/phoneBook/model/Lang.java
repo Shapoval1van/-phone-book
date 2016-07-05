@@ -4,18 +4,15 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name ="phoneBook.lang")
+@Table(name ="lang", schema = "phoneBook")
 public class Lang implements Serializable{
     @Id
     @Column(name = "id")
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer id;
 
-    @Column(name = "lang", nullable = false)
+    @Column(name = "lang", nullable = false, length = 20)
     private String lang;
-
-    @OneToOne(mappedBy = "lang")
-    private User user;
 
     public Lang() {
     }
@@ -25,7 +22,6 @@ public class Lang implements Serializable{
         return "Lang{" +
                 "id=" + id +
                 "| lang='" + lang + '\'' +
-                "| user=" + user +
                 '}';
     }
 
@@ -45,11 +41,4 @@ public class Lang implements Serializable{
         this.lang = lang;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
 }

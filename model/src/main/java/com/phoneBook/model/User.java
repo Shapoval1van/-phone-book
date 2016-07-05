@@ -5,15 +5,15 @@ import java.io.Serializable;
 import java.util.Set;
 
 @Entity
-@Table(name = "phoneBook.persone")
+@Table(name = "person", schema = "phoneBook")
 public class User implements Serializable {
     @Id
     @Column(name = "id")
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer id;
 
     @OneToOne
-    @JoinColumn(name = "lang_id",nullable = false)
+    @JoinColumn(name = "lang_id",nullable = false, referencedColumnName = "id")
     private Lang lang;
 
     @Column(name = "deleted")
@@ -90,4 +90,6 @@ public class User implements Serializable {
     public void setPassword(String password) {
         this.password = password;
     }
+
+
 }

@@ -4,40 +4,46 @@ package com.phoneBook.dao.Impl;
 import com.phoneBook.dao.ContactDao;
 import com.phoneBook.dao.DataBaseException;
 import com.phoneBook.model.Contact;
-import com.phoneBook.model.Lang;
-import com.phoneBook.model.User;
 import org.apache.log4j.Logger;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.hibernate.cfg.Configuration;
 import org.hibernate.type.StandardBasicTypes;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
+import org.springframework.stereotype.Repository;
 
 import java.util.HashSet;
 import java.util.Set;
 
+@Repository
 public class ContactDaoImpl {
     private static final Logger LOG = Logger.getLogger(ContactDao.class);
-    private static String FIND_ALL = "from com.phoneBook.model.Contact";
+    private static String FIND_ALL = "from Contact";
     private static String SETVAL_SQL = "SELECT setval('phoneBook.contact_id_seq', (SELECT MAX(id) FROM phoneBook.contact))";
     private static String DELETE__ALL = "delete from com.phoneBook.model.Contact";
 
     private Session currentSession;
     private Transaction currentTransaction;
+    private SessionFactory sessionFactory;
+    @Autowired
+    private LocalSessionFactoryBean sessionFactoryBean;
 
-    private static SessionFactory getSessionFactory(){
-        Configuration configuration = new Configuration().configure();
-        configuration.addAnnotatedClass(Contact.class);
-        configuration.addAnnotatedClass(Contact.class);
-        configuration.addAnnotatedClass(Lang.class);
-        configuration.addAnnotatedClass(User.class);
-        StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder()
-                .applySettings(configuration.getProperties());
-        SessionFactory sessionFactory = configuration.buildSessionFactory(builder.build());
-        return sessionFactory;
+    public SessionFactory getSessionFactory() {
+        return (SessionFactory) sessionFactoryBean.getObject();
+    }
 
+    public void setSessionFactory(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
+
+    public LocalSessionFactoryBean getSessionFactoryBean() {
+        return sessionFactoryBean;
+    }
+
+    public void setSessionFactoryBean(LocalSessionFactoryBean sessionFactoryBean) {
+        this.sessionFactoryBean = sessionFactoryBean;
     }
 
     public Session openCurrentSession(){

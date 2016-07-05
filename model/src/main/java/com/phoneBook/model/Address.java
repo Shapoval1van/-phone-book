@@ -6,23 +6,21 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "phoneBook.Address")
+@Table(name = "address", schema = "phoneBook")
 public class Address implements Serializable{
     @Id
     @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer id;
 
-    @Column(name = "country_name")
+    @Column(name = "country_name", length = 30)
     private String countryName;
 
-    @Column(name = "city_name")
+    @Column(name = "city_name", length = 30)
     private String cityName;
 
-    @Column(name = "streets_name")
+    @Column(name = "streets_name", length = 40)
     private String streetsName;
-
-    @OneToOne(mappedBy = "address")
-    private Contact contact;
 
     public Address() {
     }
@@ -41,16 +39,7 @@ public class Address implements Serializable{
                 "| countryName='" + countryName + '\'' +
                 "| cityName='" + cityName + '\'' +
                 "| streetsName='" + streetsName + '\'' +
-                "| contact=" + contact +
                 '}';
-    }
-
-    public Contact getContact() {
-        return contact;
-    }
-
-    public void setContact(Contact contact) {
-        this.contact = contact;
     }
 
     public Integer getId() {
@@ -84,4 +73,6 @@ public class Address implements Serializable{
     public void setStreetsName(String streetsName) {
         this.streetsName = streetsName;
     }
+
+
 }
