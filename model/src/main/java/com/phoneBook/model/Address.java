@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "phoneBook.Address")
+@Table(name = "phoneBook.address")
 public class Address implements Serializable{
     @Id
     @Column(name = "id")
@@ -41,7 +41,7 @@ public class Address implements Serializable{
                 "| countryName='" + countryName + '\'' +
                 "| cityName='" + cityName + '\'' +
                 "| streetsName='" + streetsName + '\'' +
-                "| contact=" + contact +
+                "| contact=" + contact.getFirstName() +
                 '}';
     }
 

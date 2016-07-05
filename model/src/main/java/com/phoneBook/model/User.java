@@ -5,7 +5,7 @@ import java.io.Serializable;
 import java.util.Set;
 
 @Entity
-@Table(name = "phoneBook.persone")
+@Table(name = "phoneBook.person")
 public class User implements Serializable {
     @Id
     @Column(name = "id")
@@ -25,7 +25,7 @@ public class User implements Serializable {
     @Column(name = "user_password", nullable = false)
     private String password;
 
-    @OneToMany(mappedBy = "creator")
+    @OneToMany(mappedBy = "creator", cascade = CascadeType.PERSIST)
     private Set<Contact> contact;
 
     @Override

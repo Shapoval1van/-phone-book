@@ -4,16 +4,19 @@ import com.phoneBook.dao.DataBaseException;
 import com.phoneBook.dao.Impl.AddressDaoImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("dao\\src\\main\\resources\\application-context.xml")
+@ContextConfiguration(locations = "classpath:test-context.xml")
 public class DBUnitConfig{
 
-     @Test
+    @Autowired
+    AddressDaoImpl addressDao;
+
+    @Test
     public void addressTest(){
-         AddressDaoImpl addressDao = new AddressDaoImpl();
 
          try {
              addressDao.openSessionWithTransaction();

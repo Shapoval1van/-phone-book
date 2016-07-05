@@ -1,13 +1,13 @@
 CREATE SCHEMA IF NOT EXISTS phoneBook;
 
 CREATE TABLE IF NOT EXISTS phoneBook.lang (
-  id   SERIAL      NOT NULL,
+  id   SERIAL      NOT NULL UNIQUE ,
   lang VARCHAR(20) NOT NULL,
   PRIMARY KEY (id)
 );
 
 CREATE TABLE IF NOT EXISTS phoneBook.person (
-  id            SERIAL      NOT NULL,
+  id            SERIAL      NOT NULL UNIQUE ,
   user_name     VARCHAR(15) NOT NULL,
   user_password VARCHAR(15) NOT NULL,
   lang_id       INTEGER     NOT NULL DEFAULT (1),
@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS phoneBook.person (
 );
 
 CREATE TABLE IF NOT EXISTS phoneBook.address (
-  id           SERIAL      NOT NULL,
+  id           SERIAL      NOT NULL UNIQUE ,
   country_name VARCHAR(30) NOT NULL,
   city_name    VARCHAR(30),
   streets_name  VARCHAR(40),
@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS phoneBook.address (
 );
 
 CREATE TABLE IF NOT EXISTS phoneBook.contact (
-  id          SERIAL      NOT NULL,
+  id          SERIAL      NOT NULL UNIQUE ,
   first_name  VARCHAR(15) NOT NULL,
   last_name   VARCHAR(15) NOT NULL,
   mobil_phone VARCHAR(20) NOT NULL,
@@ -35,10 +35,10 @@ CREATE TABLE IF NOT EXISTS phoneBook.contact (
   email       VARCHAR(20),
   date_creating DATE NOT NULL,
   address     INT,
-  crerator_id INT,
+  creator_id INT,
   PRIMARY KEY (id),
   CONSTRAINT fk_creator
-    FOREIGN KEY (crerator_id)
+    FOREIGN KEY (creator_id)
     REFERENCES phoneBook.person (id),
   CONSTRAINT fk_address
     FOREIGN KEY (address)
