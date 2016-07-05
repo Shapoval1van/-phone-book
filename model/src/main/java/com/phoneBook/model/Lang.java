@@ -1,11 +1,11 @@
 package com.phoneBook.model;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
+import java.io.Serializable;
 
-public class Lang {
+@Entity
+@Table(name ="phoneBook.lang")
+public class Lang implements Serializable{
     @Id
     @Column(name = "id")
     @GeneratedValue

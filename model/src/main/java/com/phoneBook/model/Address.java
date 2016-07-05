@@ -1,11 +1,13 @@
 package com.phoneBook.model;
 
 
-import javax.persistence.Column;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
 
-public class Address {
+import javax.persistence.*;
+import java.io.Serializable;
+
+@Entity
+@Table(name = "phoneBook.Address")
+public class Address implements Serializable{
     @Id
     @Column(name = "id")
     private Integer id;

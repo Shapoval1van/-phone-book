@@ -1,10 +1,11 @@
 package com.phoneBook.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name="phoneBook.contact")
-public class Contact {
+public class Contact implements Serializable {
     @Id
     @Column(name = "id")
     @GeneratedValue

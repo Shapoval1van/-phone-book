@@ -1,9 +1,12 @@
 package com.phoneBook.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Set;
 
-public class User {
+@Entity
+@Table(name = "phoneBook.persone")
+public class User implements Serializable {
     @Id
     @Column(name = "id")
     @GeneratedValue

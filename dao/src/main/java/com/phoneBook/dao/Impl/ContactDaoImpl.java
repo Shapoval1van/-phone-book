@@ -7,11 +7,13 @@ import com.phoneBook.model.Contact;
 import com.phoneBook.model.Lang;
 import com.phoneBook.model.User;
 import org.apache.log4j.Logger;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.type.StandardBasicTypes;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -19,6 +21,7 @@ import java.util.Set;
 public class ContactDaoImpl {
     private static final Logger LOG = Logger.getLogger(ContactDao.class);
     private static String FIND_ALL = "from com.phoneBook.model.Contact";
+    private static String SETVAL_SQL = "SELECT setval('phoneBook.contact_id_seq', (SELECT MAX(id) FROM phoneBook.contact))";
     private static String DELETE__ALL = "delete from com.phoneBook.model.Contact";
 
     private Session currentSession;
@@ -94,6 +97,8 @@ public class ContactDaoImpl {
     public void delete(Contact contact) throws DataBaseException {
         if(getCurrentSession()!=null) {
             getCurrentSession().delete(contact);
+            SQLQuery setMaxVal = getCurrentSession().createSQLQuery(SETVAL_SQL).addScalar("setval", StandardBasicTypes.INTEGER);
+            setMaxVal.uniqueResult();
         }
         else {
             LOG.error("Session does not opened");

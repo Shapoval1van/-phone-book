@@ -6,11 +6,13 @@ import com.phoneBook.model.Lang;
 import com.phoneBook.model.Contact;
 import com.phoneBook.model.User;
 import org.apache.log4j.Logger;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.type.StandardBasicTypes;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -19,6 +21,7 @@ public class LangDaoImpl {
     private static final Logger LOG = Logger.getLogger(LangDaoImpl.class);
     private static String FIND_ALL = "from com.phoneBook.model.Lang";
     private static String DELETE__ALL = "delete from com.phoneBook.model.Lang";
+    private static String SETVAL_SQL = "SELECT setval('phoneBook.lang_id_seq', (SELECT MAX(id) FROM phoneBook.lang))";
 
     private Session currentSession;
     private Transaction currentTransaction;
@@ -93,6 +96,8 @@ public class LangDaoImpl {
     public void delete(Lang lang) throws DataBaseException {
         if(getCurrentSession()!=null) {
             getCurrentSession().delete(lang);
+            SQLQuery setMaxVal = getCurrentSession().createSQLQuery(SETVAL_SQL).addScalar("setval", StandardBasicTypes.INTEGER);
+            setMaxVal.uniqueResult();
         }
         else {
             LOG.error("Session does not opened");
