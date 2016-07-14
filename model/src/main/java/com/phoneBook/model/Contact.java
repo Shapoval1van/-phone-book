@@ -5,7 +5,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-@Table(name="contact", schema = "phoneBook")
+@Table(name="contact")
 public class Contact implements Serializable {
     @Id
     @Column(name = "id")

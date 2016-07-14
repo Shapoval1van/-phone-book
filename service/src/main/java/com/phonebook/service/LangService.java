@@ -1,11 +1,11 @@
-package com.phoneBook.dao;
+package com.phonebook.service;
+
 
 import com.phoneBook.model.Lang;
 
 import java.util.Set;
 
-public interface LangDao {
-
+public interface LangService {
     public void persist(Lang lang);
 
     public void update(Lang lang);

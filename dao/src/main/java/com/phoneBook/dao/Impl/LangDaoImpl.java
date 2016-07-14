@@ -21,13 +21,17 @@ public class LangDaoImpl {
     private static final Logger LOG = Logger.getLogger(LangDaoImpl.class);
     private static String FIND_ALL = "from com.phoneBook.model.Lang";
     private static String DELETE__ALL = "delete from com.phoneBook.model.Lang";
-    private static String SETVAL_SQL = "SELECT setval('phoneBook.lang_id_seq', (SELECT MAX(id) FROM phoneBook.lang))";
+    private static String SETVAL_SQL = "SELECT setval('lang_id_seq', (SELECT MAX(id) FROM lang))";
 
     private Session currentSession;
     private Transaction currentTransaction;
     private SessionFactory sessionFactory;
     @Autowired
     private LocalSessionFactoryBean sessionFactoryBean;
+
+    public void setCurrentSession(Session currentSession) {
+        this.currentSession = currentSession;
+    }
 
     public SessionFactory getSessionFactory() {
         return (SessionFactory) sessionFactoryBean.getObject();
@@ -45,6 +49,13 @@ public class LangDaoImpl {
         this.sessionFactoryBean = sessionFactoryBean;
     }
 
+    public Transaction getCurrentTransaction() {
+        return currentTransaction;
+    }
+
+    public void setCurrentTransaction(Transaction currentTransaction) {
+        this.currentTransaction = currentTransaction;
+    }
 
     public Session openCurrentSession(){
         currentSession = getSessionFactory().openSession();
@@ -72,7 +83,7 @@ public class LangDaoImpl {
 
     public void persist(Lang lang) throws DataBaseException {
         if(getCurrentSession()!=null) {
-            getCurrentSession().save(lang);
+            getCurrentSession().saveOrUpdate(lang);
         }
         else {
             LOG.error("Session does not opened");

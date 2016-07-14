@@ -1,15 +1,12 @@
 package com.phoneBook.dao.Impl;
 
 import com.phoneBook.dao.DataBaseException;
-import com.phoneBook.model.Contact;
 import com.phoneBook.model.User;
 import org.apache.log4j.Logger;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.hibernate.cfg.Configuration;
 import org.hibernate.type.StandardBasicTypes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
@@ -24,7 +21,7 @@ public class UserDaoImpl {
     private static final Logger LOG = Logger.getLogger(UserDaoImpl.class);
     private static String FIND_ALL = "from com.phoneBook.model.User";
     private static String DELETE__ALL = "delete from com.phoneBook.model.User";
-    private static String SETVAL_SQL = "SELECT setval('phoneBook.person_id_seq', (SELECT MAX(id) FROM phoneBook.person))";
+    private static String SETVAL_SQL = "SELECT setval('person_id_seq', (SELECT MAX(id) FROM person))";
 
     private Session currentSession;
     private Transaction currentTransaction;
@@ -67,13 +64,21 @@ public class UserDaoImpl {
         currentSession.close();
     }
 
+    public Transaction getCurrentTransaction() {
+        return currentTransaction;
+    }
+
+    public void setCurrentTransaction(Transaction currentTransaction) {
+        this.currentTransaction = currentTransaction;
+    }
+
     private Session getCurrentSession() {
         return currentSession;
     }
 
     public void persist(User user) throws DataBaseException {
         if(getCurrentSession()!=null) {
-            getCurrentSession().save(user);
+            getCurrentSession().saveOrUpdate(user);
         }
         else {
             LOG.error("Session does not opened");

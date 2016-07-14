@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name ="lang", schema = "phoneBook")
+@Table(name ="lang")
 public class Lang implements Serializable{
     @Id
     @Column(name = "id")
@@ -15,6 +15,11 @@ public class Lang implements Serializable{
     private String lang;
 
     public Lang() {
+    }
+
+    public Lang(int id, String lang) {
+        this.id = id;
+        this.lang = lang;
     }
 
     @Override
@@ -40,5 +45,6 @@ public class Lang implements Serializable{
     public void setLang(String lang) {
         this.lang = lang;
     }
+
 
 }

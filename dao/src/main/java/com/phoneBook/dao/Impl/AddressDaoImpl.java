@@ -22,13 +22,17 @@ public class AddressDaoImpl implements AddressDao {
     private static final Logger LOG = Logger.getLogger(AddressDao.class);
     private static String FIND_ALL = "from com.phoneBook.model.Address";
     private static String DELETE__ALL = "delete from com.phoneBook.model.Address";
-    private static String SETVAL_SQL = "SELECT setval('phoneBook.address_id_seq', (SELECT MAX(id) FROM phoneBook.address))";
+    private static String SETVAL_SQL = "SELECT setval('address_id_seq', (SELECT MAX(id) FROM address))";
 
     private Session currentSession;
     private Transaction currentTransaction;
     private SessionFactory sessionFactory;
     @Autowired
     private LocalSessionFactoryBean sessionFactoryBean;
+
+    public void setCurrentSession(Session currentSession) {
+        this.currentSession = currentSession;
+    }
 
     public SessionFactory getSessionFactory() {
         return (SessionFactory)sessionFactoryBean.getObject();
@@ -49,6 +53,14 @@ public class AddressDaoImpl implements AddressDao {
     public Session openCurrentSession() {
         currentSession = getSessionFactory().openSession();
         return currentSession;
+    }
+
+    public Transaction getCurrentTransaction() {
+        return currentTransaction;
+    }
+
+    public void setCurrentTransaction(Transaction currentTransaction) {
+        this.currentTransaction = currentTransaction;
     }
 
     public void closeCurrentSession() {
@@ -72,7 +84,7 @@ public class AddressDaoImpl implements AddressDao {
 
     public void persist(Address address) throws DataBaseException {
         if (getCurrentSession() != null) {
-            getCurrentSession().save(address);
+            getCurrentSession().saveOrUpdate(address);
         } else {
             LOG.error("Session does not opened");
             throw new DataBaseException("Session does not opened");

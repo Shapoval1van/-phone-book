@@ -6,7 +6,7 @@
     <context:component-scan base-package="com.phoneBook.dao.Impl" />
         <bean id="myDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
             <property name="driverClassName" value="org.postgresql.Driver" />
-            <property name="url" value="jdbc:postgresql://localhost:5432/postgres?currentSchema=phoneBook" />
+            <property name="url" value="jdbc:postgresql://localhost:5432/postgres?" />
             <property name="username" value="postgres" />
             <property name="password" value="a1f10g" />
             <property name="initialSize" value="20" />

@@ -21,7 +21,7 @@ import java.util.Set;
 public class ContactDaoImpl {
     private static final Logger LOG = Logger.getLogger(ContactDao.class);
     private static String FIND_ALL = "from Contact";
-    private static String SETVAL_SQL = "SELECT setval('phoneBook.contact_id_seq', (SELECT MAX(id) FROM phoneBook.contact))";
+    private static String SETVAL_SQL = "SELECT setval('contact_id_seq', (SELECT MAX(id) FROM contact))";
     private static String DELETE__ALL = "delete from com.phoneBook.model.Contact";
 
     private Session currentSession;
@@ -40,6 +40,14 @@ public class ContactDaoImpl {
 
     public LocalSessionFactoryBean getSessionFactoryBean() {
         return sessionFactoryBean;
+    }
+
+    public Transaction getCurrentTransaction() {
+        return currentTransaction;
+    }
+
+    public void setCurrentTransaction(Transaction currentTransaction) {
+        this.currentTransaction = currentTransaction;
     }
 
     public void setSessionFactoryBean(LocalSessionFactoryBean sessionFactoryBean) {
@@ -72,7 +80,7 @@ public class ContactDaoImpl {
 
     public void persist(Contact contact) throws DataBaseException {
         if(getCurrentSession()!=null) {
-            getCurrentSession().save(contact);
+            getCurrentSession().saveOrUpdate(contact);
         }
         else {
             LOG.error("Session does not opened");
