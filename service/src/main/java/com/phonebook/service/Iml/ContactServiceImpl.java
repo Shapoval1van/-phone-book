@@ -16,6 +16,13 @@ public class ContactServiceImpl implements ContactService{
     @Autowired
     private ContactDaoImpl contactDao;
 
+    public ContactDaoImpl getContactDao() {
+        return contactDao;
+    }
+
+    public void setContactDao(ContactDaoImpl contactDao) {
+        this.contactDao = contactDao;
+    }
 
     public void persist(Contact contact) {
         try {

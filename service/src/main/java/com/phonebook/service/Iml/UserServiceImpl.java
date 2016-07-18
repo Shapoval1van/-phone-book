@@ -12,8 +12,15 @@ import java.util.Set;
 @Service
 public class UserServiceImpl {
     @Autowired
-    UserDaoImpl userDao;
+    private UserDaoImpl userDao;
 
+    public UserDaoImpl getUserDao() {
+        return userDao;
+    }
+
+    public void setUserDao(UserDaoImpl userDao) {
+        this.userDao = userDao;
+    }
 
     public void persist(User user)  {
         try {

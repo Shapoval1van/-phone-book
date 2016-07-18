@@ -16,6 +16,14 @@ public class AddressServiceImpl implements AddressDao {
     private AddressDaoImpl addressDao;
 
 
+    public AddressDaoImpl getAddressDao() {
+        return addressDao;
+    }
+
+    public void setAddressDao(AddressDaoImpl addressDao) {
+        this.addressDao = addressDao;
+    }
+
     public void persist(Address address) throws DataBaseException {
         try {
             addressDao.openSessionWithTransaction();

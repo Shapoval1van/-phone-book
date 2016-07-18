@@ -13,9 +13,17 @@ import java.util.Set;
 
 @Service
 public class LangServiceImpl implements LangService {
-    @Autowired
-    LangDaoImpl langDao;
 
+    @Autowired
+    private LangDaoImpl langDao;
+
+    public LangDaoImpl getLangDao() {
+        return langDao;
+    }
+
+    public void setLangDao(LangDaoImpl langDao) {
+        this.langDao = langDao;
+    }
 
     public void persist(Lang lang)  {
         try {
