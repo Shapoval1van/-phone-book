@@ -17,6 +17,8 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.HashSet;
 
+import static org.mockito.Matchers.anyObject;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -55,6 +57,42 @@ public class LangServiceTest {
             when(langDao.findAll()).thenReturn(langs);
             Assert.assertEquals(langService.findAll().size(),langs.size());
         } catch (DataBaseException e) {
+        }
+    }
+
+    @Test
+    public void deleteAllTest(){
+        try{
+            langService.deleteAll();
+            verify(langDao).deleteAll();
+        } catch (DataBaseException e) {
+        }
+    }
+
+    @Test
+    public void deleteTest(){
+        try {
+            langService.delete(new Lang());
+            verify(langDao).delete((Lang) anyObject());
+        }catch (DataBaseException e) {
+        }
+    }
+
+    @Test
+    public void persistTest(){
+        try {
+            langService.persist(new Lang());
+            verify(langDao).persist((Lang) anyObject());
+        }catch (DataBaseException e) {
+        }
+    }
+
+    @Test
+    public void updateTest(){
+        try {
+            langService.update(new Lang());
+            verify(langDao).update((Lang) anyObject());
+        }catch (DataBaseException e) {
         }
     }
 }

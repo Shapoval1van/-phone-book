@@ -18,6 +18,8 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.HashSet;
 
+import static org.mockito.Matchers.anyObject;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -65,6 +67,41 @@ public class UserServiceTest {
             when(userDao.findAll()).thenReturn(users);
             Assert.assertEquals(userService.findAll().size(),users.size());
         } catch (DataBaseException e) {
+        }
+    }
+    @Test
+    public void deleteAllTest(){
+        try{
+            userService.deleteAll();
+            verify(userDao).deleteAll();
+        } catch (DataBaseException e) {
+        }
+    }
+
+    @Test
+    public void deleteTest(){
+        try {
+            userService.delete(new User());
+            verify(userDao).delete((User) anyObject());
+        }catch (DataBaseException e) {
+        }
+    }
+
+    @Test
+    public void persistTest(){
+        try {
+            userService.persist(new User());
+            verify(userDao).persist((User) anyObject());
+        }catch (DataBaseException e) {
+        }
+    }
+
+    @Test
+    public void updateTest(){
+        try {
+            userService.update(new User());
+            verify(userDao).update((User) anyObject());
+        }catch (DataBaseException e) {
         }
     }
 }

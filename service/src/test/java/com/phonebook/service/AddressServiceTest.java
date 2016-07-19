@@ -17,6 +17,8 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.HashSet;
 
+import static org.mockito.Matchers.anyObject;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -48,13 +50,49 @@ public class AddressServiceTest {
 
     @Test
     public void findAllTest(){
-        HashSet<Address> addresss = new HashSet<Address>();
-        addresss.add(new Address(1,COUNTRY_NAME));
-        addresss.add(new Address(2,COUNTRY_NAME_1));
+        HashSet<Address> address = new HashSet<Address>();
+        address.add(new Address(1,COUNTRY_NAME));
+        address.add(new Address(2,COUNTRY_NAME_1));
         try {
-            when(addressDao.findAll()).thenReturn(addresss);
-            Assert.assertEquals(addressService.findAll().size(),addresss.size());
+            when(addressDao.findAll()).thenReturn(address);
+            Assert.assertEquals(addressService.findAll().size(),address.size());
         } catch (DataBaseException e) {
+        }
+    }
+
+    @Test
+    public void deleteAllTest(){
+        try{
+            addressService.deleteAll();
+            verify(addressDao).deleteAll();
+        } catch (DataBaseException e) {
+        }
+    }
+
+    @Test
+    public void deleteTest(){
+        try {
+            addressService.delete(new Address());
+            verify(addressDao).delete((Address) anyObject());
+        }catch (DataBaseException e) {
+        }
+    }
+
+    @Test
+    public void persistTest(){
+        try {
+            addressService.persist(new Address());
+            verify(addressDao).persist((Address) anyObject());
+        }catch (DataBaseException e) {
+        }
+    }
+
+    @Test
+    public void updateTest(){
+        try {
+            addressService.update(new Address());
+            verify(addressDao).update((Address) anyObject());
+        }catch (DataBaseException e) {
         }
     }
 }
