@@ -1,8 +1,8 @@
 package com.phonebook.service.Iml;
 
 
-import com.phoneBook.dao.DataBaseException;
-import com.phoneBook.dao.Impl.LangDaoImpl;
+import com.phonebook.dao.DataBaseException;
+import com.phonebook.dao.Impl.LangDaoImpl;
 import com.phoneBook.model.Lang;
 import com.phonebook.service.LangService;
 import org.springframework.beans.factory.annotation.Autowired;

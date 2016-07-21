@@ -1,8 +1,7 @@
-package com.phoneBook.dao.Impl;
+package com.phonebook.dao.Impl;
 
-import com.phoneBook.dao.AddressDao;
-import com.phoneBook.dao.DataBaseException;
-import com.phoneBook.model.Address;
+import com.phonebook.dao.DataBaseException;
+import com.phoneBook.model.User;
 import org.apache.log4j.Logger;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
@@ -17,12 +16,12 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Repository
-public class AddressDaoImpl implements AddressDao {
+public class UserDaoImpl {
 
-    private static final Logger LOG = Logger.getLogger(AddressDao.class);
-    private static String FIND_ALL = "from com.phoneBook.model.Address";
-    private static String DELETE__ALL = "delete from com.phoneBook.model.Address";
-    private static String SETVAL_SQL = "SELECT setval('address_id_seq', (SELECT MAX(id) FROM address))";
+    private static final Logger LOG = Logger.getLogger(UserDaoImpl.class);
+    private static String FIND_ALL = "from com.phoneBook.model.User";
+    private static String DELETE__ALL = "delete from com.phoneBook.model.User";
+    private static String SETVAL_SQL = "SELECT setval('person_id_seq', (SELECT MAX(id) FROM person))";
 
     private Session currentSession;
     private Transaction currentTransaction;
@@ -30,12 +29,8 @@ public class AddressDaoImpl implements AddressDao {
     @Autowired
     private LocalSessionFactoryBean sessionFactoryBean;
 
-    public void setCurrentSession(Session currentSession) {
-        this.currentSession = currentSession;
-    }
-
     public SessionFactory getSessionFactory() {
-        return (SessionFactory)sessionFactoryBean.getObject();
+        return (SessionFactory) sessionFactoryBean.getObject();
     }
 
     public void setSessionFactory(SessionFactory sessionFactory) {
@@ -49,10 +44,24 @@ public class AddressDaoImpl implements AddressDao {
     public void setSessionFactoryBean(LocalSessionFactoryBean sessionFactoryBean) {
         this.sessionFactoryBean = sessionFactoryBean;
     }
-
-    public Session openCurrentSession() {
+    public Session openCurrentSession(){
         currentSession = getSessionFactory().openSession();
         return currentSession;
+    }
+
+    public void closeCurrentSession(){
+        currentSession.close();
+    }
+
+    public Session openSessionWithTransaction(){
+        currentSession = openCurrentSession();
+        currentTransaction = currentSession.beginTransaction();
+        return currentSession;
+    }
+
+    public void closeSessionWithTransaction(){
+        currentTransaction.commit();
+        currentSession.close();
     }
 
     public Transaction getCurrentTransaction() {
@@ -63,76 +72,67 @@ public class AddressDaoImpl implements AddressDao {
         this.currentTransaction = currentTransaction;
     }
 
-    public void closeCurrentSession() {
-        currentSession.close();
-    }
-
-    public Session openSessionWithTransaction() {
-        currentSession = openCurrentSession();
-        currentTransaction = currentSession.beginTransaction();
-        return currentSession;
-    }
-
-    public void closeSessionWithTransaction() {
-        currentTransaction.commit();
-        currentSession.close();
-    }
-
     private Session getCurrentSession() {
         return currentSession;
     }
 
-    public void persist(Address address) throws DataBaseException {
-        if (getCurrentSession() != null) {
-            getCurrentSession().saveOrUpdate(address);
-        } else {
+    public void persist(User user) throws DataBaseException {
+        if(getCurrentSession()!=null) {
+            getCurrentSession().saveOrUpdate(user);
+        }
+        else {
             LOG.error("Session does not opened");
             throw new DataBaseException("Session does not opened");
         }
     }
 
-    public void update(Address address) throws DataBaseException {
-        if (getCurrentSession() != null) {
-            getCurrentSession().update(address);
-        } else {
+    public void update(User user) throws DataBaseException {
+        if(getCurrentSession()!=null) {
+            getCurrentSession().update(user);
+        }
+        else {
             LOG.error("Session does not opened");
             throw new DataBaseException("Session does not opened");
         }
     }
 
-    public Address findById(int id) throws DataBaseException {
-        if (getCurrentSession() != null) {
-            return getCurrentSession().get(Address.class, id);
-        } else {
+    public User findById(int id) throws DataBaseException {
+        if(getCurrentSession()!=null) {
+            return getCurrentSession().get(User.class, id);
+        }
+        else {
             LOG.error("Session does not opened");
             throw new DataBaseException("Session does not opened");
         }
     }
 
-    public void delete(Address address) throws DataBaseException {
-        if (getCurrentSession() != null) {
-            getCurrentSession().delete(address);
+    public void delete(User user) throws DataBaseException {
+        if(getCurrentSession()!=null) {
+            getCurrentSession().delete(user);
             SQLQuery setMaxVal = getCurrentSession().createSQLQuery(SETVAL_SQL).addScalar("setval", StandardBasicTypes.INTEGER);
             setMaxVal.uniqueResult();
-        } else {
+        }
+        else {
             LOG.error("Session does not opened");
             throw new DataBaseException("Session does not opened");
         }
     }
 
-    public Set<Address> findAll() throws DataBaseException {
-        if (getCurrentSession() != null) {
-            return new HashSet<Address>(getCurrentSession().createQuery(FIND_ALL).list());
-        } else {
+    public Set<User> findAll() throws DataBaseException {
+        if(getCurrentSession()!=null) {
+            return new HashSet<User>(getCurrentSession().createQuery(FIND_ALL).list());
+        }
+        else {
             LOG.error("Session does not opened");
             throw new DataBaseException("Session does not opened");
         }
     }
 
     public void deleteAll() throws DataBaseException {
-        if (getCurrentSession() != null) {
+        if(getCurrentSession()!=null) {
             getCurrentSession().createQuery(DELETE__ALL).list();
-        } else {
+        }
+        else {
             LOG.error("Session does not opened");
             throw new DataBaseException("Session does not opened");
         }

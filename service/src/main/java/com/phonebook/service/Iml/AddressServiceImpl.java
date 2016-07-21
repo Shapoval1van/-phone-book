@@ -1,8 +1,8 @@
 package com.phonebook.service.Iml;
 
-import com.phoneBook.dao.AddressDao;
-import com.phoneBook.dao.DataBaseException;
-import com.phoneBook.dao.Impl.AddressDaoImpl;
+import com.phonebook.dao.AddressDao;
+import com.phonebook.dao.DataBaseException;
+import com.phonebook.dao.Impl.AddressDaoImpl;
 import com.phoneBook.model.Address;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

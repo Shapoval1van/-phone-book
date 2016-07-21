@@ -1,8 +1,8 @@
 package com.phonebook.service;
 
-import com.phoneBook.dao.AddressDao;
-import com.phoneBook.dao.DataBaseException;
-import com.phoneBook.dao.Impl.LangDaoImpl;
+import com.phonebook.dao.AddressDao;
+import com.phonebook.dao.DataBaseException;
+import com.phonebook.dao.Impl.LangDaoImpl;
 import com.phoneBook.model.Lang;
 import com.phonebook.service.Iml.LangServiceImpl;
 import org.apache.log4j.Logger;

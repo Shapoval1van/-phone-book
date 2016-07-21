@@ -1,8 +1,8 @@
-package com.phoneBook.dao.Impl;
+package com.phonebook.dao.Impl;
 
-
-import com.phoneBook.dao.DataBaseException;
-import com.phoneBook.model.Lang;
+import com.phonebook.dao.AddressDao;
+import com.phonebook.dao.DataBaseException;
+import com.phoneBook.model.Address;
 import org.apache.log4j.Logger;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
@@ -17,11 +17,12 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Repository
-public class LangDaoImpl {
-    private static final Logger LOG = Logger.getLogger(LangDaoImpl.class);
-    private static String FIND_ALL = "from com.phoneBook.model.Lang";
-    private static String DELETE__ALL = "delete from com.phoneBook.model.Lang";
-    private static String SETVAL_SQL = "SELECT setval('lang_id_seq', (SELECT MAX(id) FROM lang))";
+public class AddressDaoImpl implements AddressDao {
+
+    private static final Logger LOG = Logger.getLogger(AddressDao.class);
+    private static String FIND_ALL = "from com.phoneBook.model.Address";
+    private static String DELETE__ALL = "delete from com.phoneBook.model.Address";
+    private static String SETVAL_SQL = "SELECT setval('address_id_seq', (SELECT MAX(id) FROM address))";
 
     private Session currentSession;
     private Transaction currentTransaction;
@@ -34,7 +35,7 @@ public class LangDaoImpl {
     }
 
     public SessionFactory getSessionFactory() {
-        return (SessionFactory) sessionFactoryBean.getObject();
+        return (SessionFactory)sessionFactoryBean.getObject();
     }
 
     public void setSessionFactory(SessionFactory sessionFactory) {
@@ -49,6 +50,11 @@ public class LangDaoImpl {
         this.sessionFactoryBean = sessionFactoryBean;
     }
 
+    public Session openCurrentSession() {
+        currentSession = getSessionFactory().openSession();
+        return currentSession;
+    }
+
     public Transaction getCurrentTransaction() {
         return currentTransaction;
     }
@@ -57,22 +63,17 @@ public class LangDaoImpl {
         this.currentTransaction = currentTransaction;
     }
 
-    public Session openCurrentSession(){
-        currentSession = getSessionFactory().openSession();
-        return currentSession;
-    }
-
-    public void closeCurrentSession(){
+    public void closeCurrentSession() {
         currentSession.close();
     }
 
-    public Session openSessionWithTransaction(){
+    public Session openSessionWithTransaction() {
         currentSession = openCurrentSession();
         currentTransaction = currentSession.beginTransaction();
         return currentSession;
     }
 
-    public void closeSessionWithTransaction(){
+    public void closeSessionWithTransaction() {
         currentTransaction.commit();
         currentSession.close();
     }
@@ -81,63 +82,57 @@ public class LangDaoImpl {
         return currentSession;
     }
 
-    public void persist(Lang lang) throws DataBaseException {
-        if(getCurrentSession()!=null) {
-            getCurrentSession().saveOrUpdate(lang);
-        }
-        else {
+    public void persist(Address address) throws DataBaseException {
+        if (getCurrentSession() != null) {
+            getCurrentSession().saveOrUpdate(address);
+        } else {
             LOG.error("Session does not opened");
             throw new DataBaseException("Session does not opened");
         }
     }
 
-    public void update(Lang lang) throws DataBaseException {
-        if(getCurrentSession()!=null) {
-            getCurrentSession().update(lang);
-        }
-        else {
+    public void update(Address address) throws DataBaseException {
+        if (getCurrentSession() != null) {
+            getCurrentSession().update(address);
+        } else {
             LOG.error("Session does not opened");
             throw new DataBaseException("Session does not opened");
         }
     }
 
-    public Lang findById(int id) throws DataBaseException {
-        if(getCurrentSession()!=null) {
-            return getCurrentSession().get(Lang.class, id);
-        }
-        else {
+    public Address findById(int id) throws DataBaseException {
+        if (getCurrentSession() != null) {
+            return getCurrentSession().get(Address.class, id);
+        } else {
             LOG.error("Session does not opened");
             throw new DataBaseException("Session does not opened");
         }
     }
 
-    public void delete(Lang lang) throws DataBaseException {
-        if(getCurrentSession()!=null) {
-            getCurrentSession().delete(lang);
+    public void delete(Address address) throws DataBaseException {
+        if (getCurrentSession() != null) {
+            getCurrentSession().delete(address);
             SQLQuery setMaxVal = getCurrentSession().createSQLQuery(SETVAL_SQL).addScalar("setval", StandardBasicTypes.INTEGER);
             setMaxVal.uniqueResult();
-        }
-        else {
+        } else {
             LOG.error("Session does not opened");
             throw new DataBaseException("Session does not opened");
         }
     }
 
-    public Set<Lang> findAll() throws DataBaseException {
-        if(getCurrentSession()!=null) {
-            return new HashSet<Lang>(getCurrentSession().createQuery(FIND_ALL).list());
-        }
-        else {
+    public Set<Address> findAll() throws DataBaseException {
+        if (getCurrentSession() != null) {
+            return new HashSet<Address>(getCurrentSession().createQuery(FIND_ALL).list());
+        } else {
             LOG.error("Session does not opened");
             throw new DataBaseException("Session does not opened");
         }
     }
 
     public void deleteAll() throws DataBaseException {
-        if(getCurrentSession()!=null) {
+        if (getCurrentSession() != null) {
             getCurrentSession().createQuery(DELETE__ALL).list();
-        }
-        else {
+        } else {
             LOG.error("Session does not opened");
             throw new DataBaseException("Session does not opened");
         }

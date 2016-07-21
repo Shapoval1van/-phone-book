@@ -1,7 +1,7 @@
 package com.phonebook.service.Iml;
 
-import com.phoneBook.dao.DataBaseException;
-import com.phoneBook.dao.Impl.UserDaoImpl;
+import com.phonebook.dao.DataBaseException;
+import com.phonebook.dao.Impl.UserDaoImpl;
 import com.phoneBook.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

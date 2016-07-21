@@ -1,4 +1,4 @@
-package com.phoneBook.model;
+package com.phonebook.model;
 
 import javax.persistence.*;
 import java.io.Serializable;

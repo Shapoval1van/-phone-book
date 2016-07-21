@@ -1,8 +1,8 @@
 package com.phooneBook.dao;
 
 
-import com.phoneBook.dao.DataBaseException;
-import com.phoneBook.dao.Impl.ContactDaoImpl;
+import com.phonebook.dao.DataBaseException;
+import com.phonebook.dao.Impl.ContactDaoImpl;
 import com.phoneBook.model.Address;
 import com.phoneBook.model.Contact;
 import org.junit.Test;

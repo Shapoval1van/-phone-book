@@ -1,4 +1,4 @@
-package com.phoneBook.dao;
+package com.phonebook.dao;
 
 import com.phoneBook.model.Address;
 

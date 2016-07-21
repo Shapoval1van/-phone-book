@@ -1,4 +1,4 @@
-package com.phoneBook.dao;
+package com.phonebook.dao;
 
 public class DataBaseException extends java.lang.Exception {
 

@@ -1,8 +1,8 @@
-package com.phoneBook.dao.Impl;
+package com.phonebook.dao.Impl;
 
 
-import com.phoneBook.dao.ContactDao;
-import com.phoneBook.dao.DataBaseException;
+import com.phonebook.dao.ContactDao;
+import com.phonebook.dao.DataBaseException;
 import com.phoneBook.model.Contact;
 import org.apache.log4j.Logger;
 import org.hibernate.SQLQuery;
