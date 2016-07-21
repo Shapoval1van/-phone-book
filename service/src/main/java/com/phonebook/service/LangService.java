@@ -1,7 +1,7 @@
 package com.phonebook.service;
 
 
-import com.phoneBook.model.Lang;
+import com.phonebook.model.Lang;
 
 import java.util.Set;
 

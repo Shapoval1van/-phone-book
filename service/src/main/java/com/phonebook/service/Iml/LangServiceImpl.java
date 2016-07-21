@@ -3,7 +3,7 @@ package com.phonebook.service.Iml;
 
 import com.phonebook.dao.DataBaseException;
 import com.phonebook.dao.Impl.LangDaoImpl;
-import com.phoneBook.model.Lang;
+import com.phonebook.model.Lang;
 import com.phonebook.service.LangService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

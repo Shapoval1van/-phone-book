@@ -1,6 +1,6 @@
 package com.phonebook.dao;
 
-import com.phoneBook.model.Address;
+import com.phonebook.model.Address;
 
 import java.util.Set;
 

@@ -1,10 +1,10 @@
-package com.phooneBook.dao;
+package com.phoonebook.dao;
 
 import com.phonebook.dao.DataBaseException;
 import com.phonebook.dao.Impl.AddressDaoImpl;
 import com.phonebook.dao.Impl.ContactDaoImpl;
 import com.phonebook.dao.Impl.LangDaoImpl;
-import com.phoneBook.model.Lang;
+import com.phonebook.model.Lang;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

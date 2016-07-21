@@ -3,7 +3,7 @@ package com.phonebook.dao.Impl;
 
 import com.phonebook.dao.ContactDao;
 import com.phonebook.dao.DataBaseException;
-import com.phoneBook.model.Contact;
+import com.phonebook.model.Contact;
 import org.apache.log4j.Logger;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
@@ -22,7 +22,7 @@ public class ContactDaoImpl {
     private static final Logger LOG = Logger.getLogger(ContactDao.class);
     private static String FIND_ALL = "from Contact";
     private static String SETVAL_SQL = "SELECT setval('contact_id_seq', (SELECT MAX(id) FROM contact))";
-    private static String DELETE__ALL = "delete from com.phoneBook.model.Contact";
+    private static String DELETE__ALL = "delete from com.phonebook.model.Contact";
 
     private Session currentSession;
     private Transaction currentTransaction;

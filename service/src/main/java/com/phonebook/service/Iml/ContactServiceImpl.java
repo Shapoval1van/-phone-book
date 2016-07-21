@@ -3,23 +3,21 @@ package com.phonebook.service.Iml;
 
 import com.phonebook.dao.DataBaseException;
 import com.phonebook.dao.Impl.ContactDaoImpl;
-import com.phoneBook.model.Contact;
+import com.phonebook.model.Contact;
 import com.phonebook.service.ContactService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.Set;
+
 @Service
 public class ContactServiceImpl implements ContactService{
 
-    @Autowired
+
     private ContactDaoImpl contactDao;
 
-    public ContactDaoImpl getContactDao() {
-        return contactDao;
-    }
-
+    @Autowired
     public void setContactDao(ContactDaoImpl contactDao) {
         this.contactDao = contactDao;
     }
@@ -73,9 +71,9 @@ public class ContactServiceImpl implements ContactService{
     public Set<Contact> findAll() {
         try {
             contactDao.openSessionWithTransaction();
-            HashSet<Contact> contactes = (HashSet<Contact>) contactDao.findAll();
+            HashSet<Contact> contacts = (HashSet<Contact>) contactDao.findAll();
             contactDao.closeSessionWithTransaction();
-            return contactes;
+            return contacts;
         }catch (DataBaseException e){
             contactDao.getCurrentTransaction().rollback();
             contactDao.closeSessionWithTransaction();

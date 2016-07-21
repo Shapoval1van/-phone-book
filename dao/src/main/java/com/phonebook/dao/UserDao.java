@@ -1,6 +1,6 @@
 package com.phonebook.dao;
 
-import com.phoneBook.model.User;
+import com.phonebook.model.User;
 
 import java.util.Set;
 

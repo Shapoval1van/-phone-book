@@ -3,7 +3,7 @@ package com.phonebook.service;
 import com.phonebook.dao.ContactDao;
 import com.phonebook.dao.DataBaseException;
 import com.phonebook.dao.Impl.ContactDaoImpl;
-import com.phoneBook.model.Contact;
+import com.phonebook.model.Contact;
 import com.phonebook.service.Iml.ContactServiceImpl;
 import org.apache.log4j.Logger;
 import org.junit.Assert;

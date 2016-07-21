@@ -2,7 +2,7 @@ package com.phonebook.dao.Impl;
 
 
 import com.phonebook.dao.DataBaseException;
-import com.phoneBook.model.Lang;
+import com.phonebook.model.Lang;
 import org.apache.log4j.Logger;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
@@ -19,8 +19,8 @@ import java.util.Set;
 @Repository
 public class LangDaoImpl {
     private static final Logger LOG = Logger.getLogger(LangDaoImpl.class);
-    private static String FIND_ALL = "from com.phoneBook.model.Lang";
-    private static String DELETE__ALL = "delete from com.phoneBook.model.Lang";
+    private static String FIND_ALL = "from com.phonebook.model.Lang";
+    private static String DELETE__ALL = "delete from com.phonebook.model.Lang";
     private static String SETVAL_SQL = "SELECT setval('lang_id_seq', (SELECT MAX(id) FROM lang))";
 
     private Session currentSession;

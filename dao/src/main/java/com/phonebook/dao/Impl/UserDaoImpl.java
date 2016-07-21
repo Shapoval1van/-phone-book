@@ -1,7 +1,7 @@
 package com.phonebook.dao.Impl;
 
 import com.phonebook.dao.DataBaseException;
-import com.phoneBook.model.User;
+import com.phonebook.model.User;
 import org.apache.log4j.Logger;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
@@ -19,8 +19,8 @@ import java.util.Set;
 public class UserDaoImpl {
 
     private static final Logger LOG = Logger.getLogger(UserDaoImpl.class);
-    private static String FIND_ALL = "from com.phoneBook.model.User";
-    private static String DELETE__ALL = "delete from com.phoneBook.model.User";
+    private static String FIND_ALL = "from com.phonebook.model.User";
+    private static String DELETE__ALL = "delete from com.phonebook.model.User";
     private static String SETVAL_SQL = "SELECT setval('person_id_seq', (SELECT MAX(id) FROM person))";
 
     private Session currentSession;

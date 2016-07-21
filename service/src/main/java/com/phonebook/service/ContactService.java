@@ -1,6 +1,6 @@
 package com.phonebook.service;
 
-import com.phoneBook.model.Contact;
+import com.phonebook.model.Contact;
 
 import java.util.Set;
 

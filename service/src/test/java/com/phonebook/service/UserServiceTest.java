@@ -4,7 +4,7 @@ package com.phonebook.service;
 import com.phonebook.dao.AddressDao;
 import com.phonebook.dao.DataBaseException;
 import com.phonebook.dao.Impl.UserDaoImpl;
-import com.phoneBook.model.User;
+import com.phonebook.model.User;
 import com.phonebook.service.Iml.UserServiceImpl;
 import org.apache.log4j.Logger;
 import org.junit.Assert;

@@ -3,7 +3,7 @@ package com.phonebook.service.Iml;
 import com.phonebook.dao.AddressDao;
 import com.phonebook.dao.DataBaseException;
 import com.phonebook.dao.Impl.AddressDaoImpl;
-import com.phoneBook.model.Address;
+import com.phonebook.model.Address;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

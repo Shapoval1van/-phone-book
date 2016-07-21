@@ -2,7 +2,7 @@ package com.phonebook.dao.Impl;
 
 import com.phonebook.dao.AddressDao;
 import com.phonebook.dao.DataBaseException;
-import com.phoneBook.model.Address;
+import com.phonebook.model.Address;
 import org.apache.log4j.Logger;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
@@ -20,8 +20,8 @@ import java.util.Set;
 public class AddressDaoImpl implements AddressDao {
 
     private static final Logger LOG = Logger.getLogger(AddressDao.class);
-    private static String FIND_ALL = "from com.phoneBook.model.Address";
-    private static String DELETE__ALL = "delete from com.phoneBook.model.Address";
+    private static String FIND_ALL = "from com.phonebook.model.Address";
+    private static String DELETE__ALL = "delete from com.phonebook.model.Address";
     private static String SETVAL_SQL = "SELECT setval('address_id_seq', (SELECT MAX(id) FROM address))";
 
     private Session currentSession;
