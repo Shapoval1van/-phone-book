@@ -27,7 +27,7 @@ public class ContactDaoImpl {
     private Session currentSession;
     private Transaction currentTransaction;
     private SessionFactory sessionFactory;
-    @Autowired
+    @Autowired()
     private LocalSessionFactoryBean sessionFactoryBean;
 
     public SessionFactory getSessionFactory() {

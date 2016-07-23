@@ -14,10 +14,9 @@ import java.util.Set;
 @Service
 public class ContactServiceImpl implements ContactService{
 
-
     private ContactDaoImpl contactDao;
 
-    @Autowired
+    @Autowired()
     public void setContactDao(ContactDaoImpl contactDao) {
         this.contactDao = contactDao;
     }

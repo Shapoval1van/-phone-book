@@ -16,7 +16,7 @@ public class ContactController {
 
     private ContactServiceImpl contactService;
 
-    @Autowired
+    @Autowired()
     public void setContactService(ContactServiceImpl contactService) {
         this.contactService = contactService;
     }
@@ -25,7 +25,7 @@ public class ContactController {
     String getIndex(Model model){
         HashSet<Contact> contacts= (HashSet<Contact>)contactService.findAll();
         model.addAttribute("contacts",contacts);
-        return "/contacts.jsp";
+        return "/contacts";
     }
 
 }
