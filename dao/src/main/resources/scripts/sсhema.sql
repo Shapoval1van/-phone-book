@@ -24,6 +24,11 @@ CREATE TABLE IF NOT EXISTS address (
   PRIMARY KEY (id)
 );
 
+CREATE TABLE IF NOT EXISTS group_c(
+  id  SERIAL NOT NULL UNIQUE,
+  group_name VARCHAR(20) NOT NULL UNIQUE
+);
+
 CREATE TABLE IF NOT EXISTS contact (
   id          SERIAL      NOT NULL UNIQUE ,
   first_name  VARCHAR(15) NOT NULL,
@@ -33,8 +38,12 @@ CREATE TABLE IF NOT EXISTS contact (
   email       VARCHAR(20),
   date_creating DATE NOT NULL,
   address     INT,
+  group_id   INT,
   creator_id INT,
   PRIMARY KEY (id),
+  CONSTRAINT fk_group
+    FOREIGN KEY (group_id)
+    REFERENCES group_c(id),
   CONSTRAINT fk_creator
     FOREIGN KEY (creator_id)
     REFERENCES person (id),
@@ -42,4 +51,5 @@ CREATE TABLE IF NOT EXISTS contact (
     FOREIGN KEY (address)
     REFERENCES address(id)
 );
+
 

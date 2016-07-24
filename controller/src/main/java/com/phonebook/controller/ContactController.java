@@ -25,7 +25,7 @@ public class ContactController {
     String getIndex(Model model){
         HashSet<Contact> contacts= (HashSet<Contact>)contactService.findAll();
         model.addAttribute("contacts",contacts);
-        return "/contacts";
+        return "contacts";
     }
 
 }

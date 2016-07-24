@@ -7,7 +7,7 @@
     <display-name>Phone Book</display-name>
 
     <welcome-file-list>
-        <welcome-file>/pages/index.jsp</welcome-file>
+        <welcome-file>/WEB-INF/views/index.jsp</welcome-file>
     </welcome-file-list>
 
     <context-param>
