@@ -28,6 +28,9 @@ public class User implements Serializable {
     @OneToMany(mappedBy = "creator")
     private Set<Contact> contact;
 
+    @OneToMany(mappedBy = "creator")
+    private Set<Group> group;
+
     @Override
     public String toString() {
         return "User{" +
@@ -41,6 +44,16 @@ public class User implements Serializable {
     }
 
     public User() {
+    }
+
+
+
+    public Set<Group> getGroup() {
+        return group;
+    }
+
+    public void setGroup(Set<Group> group) {
+        this.group = group;
     }
 
     public Integer getId() {

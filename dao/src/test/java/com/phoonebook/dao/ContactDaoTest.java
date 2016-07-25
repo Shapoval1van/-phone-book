@@ -56,7 +56,7 @@ public class ContactDaoTest {
             contact.setAddress(new Address(2,"sdfg","SDfg","Fdg"));
             contactDao.openSessionWithTransaction();
             HashSet<Contact> contacts = (HashSet<Contact>) contactDao.findAll();
-            assertEquals(3, contacts.size());
+            assertEquals(4, contacts.size());
         } catch (DataBaseException e) {
             contactDao.closeSessionWithTransaction();
             contactDao.getCurrentTransaction().rollback();

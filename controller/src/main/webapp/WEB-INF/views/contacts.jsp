@@ -6,25 +6,49 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <t:pageLayout title="Главная">
     <jsp:attribute name="bodyLayout">
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>
-                        First Name
-                    </th>
-                    <th>
-                        Email
-                    </th>
-                    <th>
-                        Phone
-                    </th>
-                    <th>
-                        City
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
+        <div class="col-xs-3">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Group</h3>
+                </div>
+                <div class="panel-body">
+                    <ul>
+                        <c:forEach items="${groups}" var="group">
+                            <li><a href="#" class="list-group-item">${group.getGroupName()}</a></li>
+                        </c:forEach>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-offset-3">
+            <table class="table table-striped">
+                   <thead>
+                   <tr>
+                       <th>
+                           First Name
+                       </th>
+                       <th>
+                           Email
+                       </th>
+                       <th>
+                           Phone
+                       </th>
+                       <th>
+                           City
+                       </th>
+                   </tr>
+                   </thead>
+                   <tbody>
+                   <c:forEach items="${contacts}" var="contact">
+                       <tr>
+                           <td>${contact.getFirstName()}</td>
+                           <td>${contact.getEmail()}</td>
+                           <td>${contact.getMobilPhone()}</td>
+                           <td>${contact.getAddress().getCityName()}</td>
+                       </tr>
+                   </c:forEach>
+                   </tbody>
+               </table>
+        </div>
     </jsp:attribute>
 </t:pageLayout>

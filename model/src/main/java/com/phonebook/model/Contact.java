@@ -12,12 +12,12 @@ public class Contact implements Serializable {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer id;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch=FetchType.EAGER)
     @JoinColumn(name = "address", nullable = true, referencedColumnName = "id")
     private Address address;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "creator_id", nullable = false, referencedColumnName = "id")
+    @JoinColumn(name = "creator_id", referencedColumnName = "id")
     private User creator;
 
     @Column(name = "first_name")
@@ -38,6 +38,10 @@ public class Contact implements Serializable {
     @Column(name = "date_creating")
     private Date dateCreating;
 
+    @OneToOne
+    @JoinColumn(name = "group_id", referencedColumnName = "id")
+    private Group group;
+
     public Contact() {
     }
 
@@ -53,6 +57,14 @@ public class Contact implements Serializable {
                 "| homePhone='" + homePhone + '\'' +
                 "| email='" + email + '\'' +
                 '}';
+    }
+
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
     }
 
     public Integer getId() {

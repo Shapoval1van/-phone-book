@@ -26,6 +26,7 @@
                 <value>com.phonebook.model.Contact</value>
                 <value>com.phonebook.model.User</value>
                 <value>com.phonebook.model.Lang</value>
+                <value>com.phonebook.model.Group</value>
             </list>
         </property>
     </bean>

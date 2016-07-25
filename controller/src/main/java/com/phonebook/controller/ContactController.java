@@ -2,6 +2,7 @@ package com.phonebook.controller;
 
 import com.phonebook.model.Contact;
 import com.phonebook.service.Iml.ContactServiceImpl;
+import com.phonebook.service.Iml.GroupServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,16 +16,24 @@ import java.util.HashSet;
 public class ContactController {
 
     private ContactServiceImpl contactService;
+    private GroupServiceImpl groupService;
 
     @Autowired()
     public void setContactService(ContactServiceImpl contactService) {
         this.contactService = contactService;
     }
 
+    @Autowired()
+    public void setGroupService(GroupServiceImpl groupService) {
+        this.groupService = groupService;
+    }
+
     @RequestMapping(method = RequestMethod.GET)
     String getIndex(Model model){
+        //change to treeSet
         HashSet<Contact> contacts= (HashSet<Contact>)contactService.findAll();
         model.addAttribute("contacts",contacts);
+        model.addAttribute("groups",groupService.findByUserId(1));
         return "contacts";
     }
 
