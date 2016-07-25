@@ -25,7 +25,7 @@
 </head>
 <body>
 <div class="row">
-    <nav class="navbar navbar-inverse row navbar-right">
+    <nav class="navbar navbar-inverse row ">
         <div class="container">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">

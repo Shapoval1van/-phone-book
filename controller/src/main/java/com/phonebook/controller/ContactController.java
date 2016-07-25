@@ -6,6 +6,7 @@ import com.phonebook.service.Iml.GroupServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -29,12 +30,17 @@ public class ContactController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    String getIndex(Model model){
+    String getContactsList(Model model){
         //change to treeSet
         HashSet<Contact> contacts= (HashSet<Contact>)contactService.findAll();
         model.addAttribute("contacts",contacts);
         model.addAttribute("groups",groupService.findByUserId(1));
-        return "contacts";
+        return "contacts/list";
     }
 
+    @RequestMapping(value = "/id{id}",  method = RequestMethod.GET)
+    String showContact(@PathVariable("id") int id, Model model){
+        model.addAttribute("contact",contactService.findById(id));
+        return "contacts/show";
+    }
 }

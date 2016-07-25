@@ -6,6 +6,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <t:pageLayout title="Главная">
     <jsp:attribute name="bodyLayout">
+        <div class="col-xs-offset-12">
+            <a class="btn btn-primary" href="#"> Add New</a>
+        </div>
         <div class="col-xs-3">
             <div class="panel panel-primary">
                 <div class="panel-heading">
@@ -16,6 +19,7 @@
                         <c:forEach items="${groups}" var="group">
                             <li><a href="#" class="list-group-item">${group.getGroupName()}</a></li>
                         </c:forEach>
+                        <li><a class="list-group-item" href="#">Custom Group</a></li>
                     </ul>
                 </div>
             </div>
@@ -24,24 +28,16 @@
             <table class="table table-striped">
                    <thead>
                    <tr>
-                       <th>
-                           First Name
-                       </th>
-                       <th>
-                           Email
-                       </th>
-                       <th>
-                           Phone
-                       </th>
-                       <th>
-                           City
-                       </th>
+                       <th>First Name</th>
+                       <th>Email</th>
+                       <th>Phone</th>
+                       <th>City</th>
                    </tr>
                    </thead>
                    <tbody>
                    <c:forEach items="${contacts}" var="contact">
                        <tr>
-                           <td>${contact.getFirstName()}</td>
+                           <td><a href="/contact/id${contact.getId()}">${contact.getFirstName()}</a></td>
                            <td>${contact.getEmail()}</td>
                            <td>${contact.getMobilPhone()}</td>
                            <td>${contact.getAddress().getCityName()}</td>
