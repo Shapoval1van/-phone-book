@@ -6,6 +6,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <t:pageLayout title="Главная">
     <jsp:attribute name="bodyLayout">
+    <div class="container" id="main">
         <div class="col-xs-offset-12">
             <a class="btn btn-primary" href="#"> Add New</a>
         </div>
@@ -26,25 +27,26 @@
         </div>
         <div class="col-xs-offset-3">
             <table class="table table-striped">
-                   <thead>
-                   <tr>
-                       <th>First Name</th>
-                       <th>Email</th>
-                       <th>Phone</th>
-                       <th>City</th>
-                   </tr>
-                   </thead>
-                   <tbody>
-                   <c:forEach items="${contacts}" var="contact">
-                       <tr>
-                           <td><a href="/contact/id${contact.getId()}">${contact.getFirstName()}</a></td>
-                           <td>${contact.getEmail()}</td>
-                           <td>${contact.getMobilPhone()}</td>
-                           <td>${contact.getAddress().getCityName()}</td>
-                       </tr>
-                   </c:forEach>
-                   </tbody>
-               </table>
+                <thead>
+                <tr>
+                    <th>First Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>City</th>
+                </tr>
+                </thead>
+                <tbody>
+                <c:forEach items="${contacts}" var="contact">
+                    <tr>
+                        <td><a href="/contact/id${contact.getId()}">${contact.getFirstName()}</a></td>
+                        <td>${contact.getEmail()}</td>
+                        <td>${contact.getMobilPhone()}</td>
+                        <td>${contact.getAddress().getCityName()}</td>
+                    </tr>
+                </c:forEach>
+                </tbody>
+            </table>
         </div>
+    </div>
     </jsp:attribute>
 </t:pageLayout>

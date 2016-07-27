@@ -68,6 +68,13 @@
     }
 }
 
-/*.title{*/
-    /*font: ;*/
-/*}*/
+.font-bold{
+    font-size: larger;
+    font-style: oblique;
+    font-weight: bold;
+}
+
+.font-primary{
+    font-size: large;
+    font-style: italic;
+}

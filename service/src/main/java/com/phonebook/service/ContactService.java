@@ -1,6 +1,7 @@
 package com.phonebook.service;
 
 import com.phonebook.model.Contact;
+import com.phonebook.model.User;
 
 import java.util.Set;
 
@@ -16,4 +17,6 @@ public interface ContactService {
     public Set<Contact> findAll();
 
     public void deleteAll();
+
+    public Set<Contact> findAllByCteator(User user);
 }

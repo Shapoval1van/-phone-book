@@ -24,43 +24,40 @@
 <%--</script>--%>
 </head>
 <body>
-<div class="row">
-    <nav class="navbar navbar-inverse row ">
-        <div class="container">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="${pageContext.request.contextPath}/">JS</a>
-            </div>
+    <div >
+        <nav class="navbar navbar-inverse">
+            <div class="container">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="${pageContext.request.contextPath}/">JS</a>
+                </div>
 
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav col-md-3 col-xs-offset-6">
-                    <li><a href="${pageContext.request.contextPath}/contact">Contacts</a></li>
-                </ul>
-                <ul class="nav navbar-nav col-md-3 col-xs-offset-8">
-                    <li><a href="#">MyProfile</a></li>
-                </ul>
-                <ul class="nav navbar-nav col-md-3 col-xs-offset-7">
-                    <li><a href="#">Exit</a></li>
-                </ul>
-            </div><!-- /.navbar-collapse -->
-        </div><!-- /.container-fluid -->
-    </nav>
-</div>
-<div class="container" id = "main">
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav col-md-3 col-xs-offset-6">
+                        <li><a href="${pageContext.request.contextPath}/contact">Contacts</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav col-md-3 col-xs-offset-8">
+                        <li><a href="#">MyProfile</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav col-md-3 col-xs-offset-7">
+                        <li><a href="#">Exit</a></li>
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+        </nav>
+    </div>
     <jsp:invoke fragment="bodyLayout"/>
     <hr>
     <footer>
-        <p>© JungleC.</p>
+        <p class="col-xs-offset-2">© JungleC.</p>
     </footer>
-</div>
-
 <%--<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/app.js"></script>--%>
 </body>
 </html>

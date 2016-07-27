@@ -11,7 +11,12 @@
                 <h3 class="panel-title">Contact</h3>
             </div>
             <div class="panel-body">
-                <span> FirstName: </span><span class="col-xs-offset-6">${contact.getFirstName()}</span>
+                <table class="table table-striped">
+                    <tr>
+                        <td><span class="font-bold"> FirstName: </span></td>
+                        <td><span class="font-primary">${contact.getFirstName()}</span></td>
+                    </tr>
+                </table>
             </div>
         </div>
         <div class="row">
@@ -22,6 +27,5 @@
                 <a class="btn btn-primary" href="#">Edit</a>
             </div>
         </div>
-
     </jsp:attribute>
 </t:pageLayout>

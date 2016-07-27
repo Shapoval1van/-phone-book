@@ -4,11 +4,11 @@ package com.phonebook.service.Iml;
 import com.phonebook.dao.DataBaseException;
 import com.phonebook.dao.Impl.ContactDaoImpl;
 import com.phonebook.model.Contact;
+import com.phonebook.model.User;
 import com.phonebook.service.ContactService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
 import java.util.Set;
 
 @Service
@@ -70,7 +70,7 @@ public class ContactServiceImpl implements ContactService{
     public Set<Contact> findAll() {
         try {
             contactDao.openSessionWithTransaction();
-            HashSet<Contact> contacts = (HashSet<Contact>) contactDao.findAll();
+            Set<Contact> contacts =  contactDao.findAll();
             contactDao.closeSessionWithTransaction();
             return contacts;
         }catch (DataBaseException e){
@@ -88,6 +88,19 @@ public class ContactServiceImpl implements ContactService{
         }catch (DataBaseException e){
             contactDao.getCurrentTransaction().rollback();
             contactDao.closeSessionWithTransaction();
+        }
+    }
+
+    public Set<Contact> findAllByCteator(User user) {
+        try {
+            contactDao.openSessionWithTransaction();
+            Set<Contact> contacts = contactDao.findAllByCreator(user);
+            contactDao.closeSessionWithTransaction();
+            return contacts;
+        }catch (DataBaseException e){
+            contactDao.getCurrentTransaction().rollback();
+            contactDao.closeSessionWithTransaction();
+            return null;
         }
     }
 }

@@ -4,23 +4,22 @@ package com.phonebook.dao.Impl;
 import com.phonebook.dao.ContactDao;
 import com.phonebook.dao.DataBaseException;
 import com.phonebook.model.Contact;
+import com.phonebook.model.User;
 import org.apache.log4j.Logger;
-import org.hibernate.SQLQuery;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
+import org.hibernate.*;
 import org.hibernate.type.StandardBasicTypes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.stereotype.Repository;
 
-import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 @Repository
 public class ContactDaoImpl {
     private static final Logger LOG = Logger.getLogger(ContactDao.class);
     private static String FIND_ALL = "from Contact";
+    private static String FIND_ALL_BY_CREATOR = "from Contact as c where c.creator.id=:id";
     private static String SETVAL_SQL = "SELECT setval('contact_id_seq', (SELECT MAX(id) FROM contact))";
     private static String DELETE__ALL = "delete from com.phonebook.model.Contact";
 
@@ -122,7 +121,27 @@ public class ContactDaoImpl {
 
     public Set<Contact> findAll() throws DataBaseException {
         if(getCurrentSession()!=null) {
-            return new HashSet<Contact>(getCurrentSession().createQuery(FIND_ALL).list());
+            Set<Contact> contacts = new TreeSet<>((Contact c1,Contact c2)->
+                    c1.getFirstName().compareTo(c2.getFirstName())
+            );
+            contacts.addAll((getCurrentSession().createQuery(FIND_ALL).list()));
+            return contacts;
+        }
+        else {
+            LOG.error("Session does not opened");
+            throw new DataBaseException("Session does not opened");
+        }
+    }
+
+    public Set<Contact> findAllByCreator(User user) throws DataBaseException {
+        if(getCurrentSession()!=null) {
+            Set<Contact> contacts = new TreeSet<>((Contact c1,Contact c2)->
+                    c1.getFirstName().compareTo(c2.getFirstName())
+            );
+            Query query = getCurrentSession().createQuery(FIND_ALL_BY_CREATOR);
+            query.setParameter("id", user.getId());
+            contacts.addAll(query.list());
+            return contacts;
         }
         else {
             LOG.error("Session does not opened");

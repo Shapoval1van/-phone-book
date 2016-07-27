@@ -99,7 +99,6 @@ public class GroupDaoImpl implements GroupDao{
 
     }
 
-
     public List<Group> findAllByUserId(int id) throws DataBaseException {
         if (getCurrentSession() != null) {
             Query query = getCurrentSession().createQuery(GET_GROUP_BY_USER_ID);
