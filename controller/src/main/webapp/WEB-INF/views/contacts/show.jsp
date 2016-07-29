@@ -27,5 +27,6 @@
                 <a class="btn btn-primary" href="#">Edit</a>
             </div>
         </div>
+    <hr>
     </jsp:attribute>
 </t:pageLayout>

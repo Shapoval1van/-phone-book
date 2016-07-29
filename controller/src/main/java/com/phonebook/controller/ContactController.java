@@ -31,7 +31,7 @@ public class ContactController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    String getContactsList(Model model){
+    public String getContactsList(Model model){
         User user = new User();
         user.setId(1);
         Set<Contact> contacts = contactService.findAllByCteator(user);
@@ -41,7 +41,7 @@ public class ContactController {
     }
 
     @RequestMapping(value = "/id{id}",  method = RequestMethod.GET)
-    String showContact(@PathVariable("id") int id, Model model){
+    public String showContact(@PathVariable("id") int id, Model model){
         model.addAttribute("contact",contactService.findById(id));
         return "contacts/show";
     }

@@ -78,3 +78,21 @@
     font-size: large;
     font-style: italic;
 }
+
+.flag {
+    width: 32px;
+    height: 32px;
+    background: url("../image/flags.png") no-repeat;
+}
+
+.flag.flag-ru {
+    background-position: -32px 0;
+    padding-left: 40px;
+    padding-right: 40px;
+}
+
+.flag.flag-uk {
+    background-position: 0 -32px;
+    padding-left: 40px;
+    padding-right: 40px;
+}

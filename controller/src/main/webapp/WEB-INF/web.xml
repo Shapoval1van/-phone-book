@@ -6,10 +6,6 @@
 
     <display-name>Phone Book</display-name>
 
-    <welcome-file-list>
-        <welcome-file>/WEB-INF/views/index.jsp</welcome-file>
-    </welcome-file-list>
-
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>/WEB-INF/spring/root-context.xml</param-value>

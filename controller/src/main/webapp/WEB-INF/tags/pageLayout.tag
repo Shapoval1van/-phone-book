@@ -1,5 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@tag description="Page Template" pageEncoding="UTF-8"%>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 
 <%@attribute name="title"%>
 <%@attribute name="bodyLayout" fragment="true" %>
@@ -35,28 +36,39 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="${pageContext.request.contextPath}/">JS</a>
+                    <a class="navbar-brand" href="${pageContext.request.contextPath}/">Jc</a>
                 </div>
 
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav col-md-3 col-xs-offset-6">
-                        <li><a href="${pageContext.request.contextPath}/contact">Contacts</a></li>
+                        <li><a href="${pageContext.request.contextPath}/contact"><spring:message code="navbar.contact"/></a></li>
                     </ul>
                     <ul class="nav navbar-nav col-md-3 col-xs-offset-8">
-                        <li><a href="#">MyProfile</a></li>
+                        <li><a href="#"><spring:message code="navbar.profile"/> </a></li>
                     </ul>
                     <ul class="nav navbar-nav col-md-3 col-xs-offset-7">
-                        <li><a href="#">Exit</a></li>
+                        <li><a href="#"><spring:message code="navbar.exit"/></a></li>
                     </ul>
                 </div><!-- /.navbar-collapse -->
             </div><!-- /.container-fluid -->
         </nav>
     </div>
     <jsp:invoke fragment="bodyLayout"/>
-    <hr>
     <footer>
-        <p class="col-xs-offset-2">© JungleC.</p>
+        <div >
+            <div class="col-md-3 col-sm-3">
+                <p>© JungleC.</p>
+            </div>
+            <div class="col-md-9 col-sm-9 clearfix" align="right">
+                <a href="?lang=en" class="btn btn-default flag flag-uk"<%--onclick="SetCookie('localeCookie','ru_RU')--%>>
+                    ENG
+                </a>
+                <a href="?lang=ru" class="btn btn-default flag flag-ru"<%--onclick="SetCookie('localeCookie','en_US')--%>>
+                    RUS
+                </a>
+            </div>
+        </div>
     </footer>
 <%--<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/app.js"></script>--%>
 </body>
