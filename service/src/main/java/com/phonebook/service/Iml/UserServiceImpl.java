@@ -3,14 +3,18 @@ package com.phonebook.service.Iml;
 import com.phonebook.dao.DataBaseException;
 import com.phonebook.dao.Impl.UserDaoImpl;
 import com.phonebook.model.User;
+import com.phonebook.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @Service
-public class UserServiceImpl {
+public class UserServiceImpl implements UserService, UserDetailsService {
     @Autowired
     private UserDaoImpl userDao;
 
@@ -90,5 +94,9 @@ public class UserServiceImpl {
             userDao.getCurrentTransaction().rollback();
             userDao.closeSessionWithTransaction();
         }
+    }
+
+    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
+        return null;
     }
 }
