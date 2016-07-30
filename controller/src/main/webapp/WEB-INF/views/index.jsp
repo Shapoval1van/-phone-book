@@ -12,7 +12,7 @@
             <div class="container">
                 <h1><spring:message code="welcome.h1"/></h1>
                 <p class="lead"><spring:message code="welcome.ads"/></p>
-                <p><a href="#" class="btn btn-primary btn-lg"><spring:message code="welcome.button"/>»</a></p>
+                <p><a href="/contact" class="btn btn-primary btn-lg"><spring:message code="welcome.button"/>»</a></p>
             </div>
         </div>
     </jsp:attribute>

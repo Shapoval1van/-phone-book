@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS lang (
 CREATE TABLE IF NOT EXISTS person (
   id            SERIAL      NOT NULL UNIQUE,
   user_name     VARCHAR(15) NOT NULL,
-  user_password VARCHAR(15) NOT NULL,
+  user_password VARCHAR(255) NOT NULL,
   lang_id       INTEGER     NOT NULL DEFAULT (1),
   deleted       BOOLEAN              DEFAULT (FALSE),
   PRIMARY KEY (id),

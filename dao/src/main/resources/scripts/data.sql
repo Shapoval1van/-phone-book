@@ -3,7 +3,7 @@
     (DEFAULT, 'Russian');
   INSERT INTO person VALUES (DEFAULT, 'Jungle', '12geribi', DEFAULT, DEFAULT),
     (DEFAULT, 'Kunkur', '123456d', DEFAULT, DEFAULT),
-    (DEFAULT, 'Jeks', '1234qwe', DEFAULT, DEFAULT);
+    (DEFAULT, 'user', 'user', DEFAULT, DEFAULT);
   INSERT INTO group_c VALUES (DEFAULT, 'School', TRUE, DEFAULT),
     (DEFAULT, 'Work', TRUE, DEFAULT),
     (DEFAULT, 'Friends', TRUE, DEFAULT),

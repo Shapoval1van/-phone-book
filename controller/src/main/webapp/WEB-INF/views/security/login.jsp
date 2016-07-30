@@ -39,7 +39,7 @@
                                              </div>
                                          </div>
                                          <div class="col-xs-12 col-sm-12 col-md-12">
-                                             <a href="#"><spring:message code="login.registration"/></a>
+                                             <a href="/registration"><spring:message code="login.registration"/></a>
                                              <c:if test="${error == true}">
                                                  <spring:message code="login.error" var="error_message"/>
                                                  <c:out value="${error_message}"/>
