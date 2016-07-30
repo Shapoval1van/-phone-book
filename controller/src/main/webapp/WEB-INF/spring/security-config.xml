@@ -6,7 +6,8 @@
 http://www.springframework.org/schema/beans/spring-beans.xsd
 http://www.springframework.org/schema/security
 http://www.springframework.org/schema/security/spring-security.xsd">
-    <http use-expressions = "true">
+    <http authentication-manager-ref="dao-auth"
+            use-expressions = "true">
         <intercept-url pattern = '/*' access = 'permitAll'/>
         <form-login
                     login-page="/login"
@@ -18,11 +19,21 @@ http://www.springframework.org/schema/security/spring-security.xsd">
                     always-use-default-target="true"/>
         <logout logout-success-url="/contact"/>
     </http>
-    <authentication-manager>
+
+    <authentication-manager id = "in-memory-auth">
         <authentication-provider>
             <user-service>
                 <user name="user" password="user" authorities="ROLE_USER"/>
             </user-service>
         </authentication-provider>
     </authentication-manager>
+    <authentication-manager id="dao-auth">
+        <authentication-provider user-service-ref="userServiceImpl">
+            <!--<password-encoder ref="encoder"></password-encoder>-->
+        </authentication-provider>
+    </authentication-manager>
+    <beans:bean id="encoder"
+                class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
+        <beans:constructor-arg name="strength" value="11"/>
+    </beans:bean>
 </beans:beans>

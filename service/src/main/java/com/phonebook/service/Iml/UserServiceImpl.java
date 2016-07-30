@@ -15,7 +15,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-@Service
+@Service("userServiceImpl")
 public class UserServiceImpl implements UserService, UserDetailsService {
     @Autowired
     private UserDaoImpl userDao;
