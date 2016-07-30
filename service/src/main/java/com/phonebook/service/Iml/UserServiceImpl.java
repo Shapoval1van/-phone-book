@@ -5,12 +5,14 @@ import com.phonebook.dao.Impl.UserDaoImpl;
 import com.phonebook.model.User;
 import com.phonebook.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -96,7 +98,17 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         }
     }
 
-    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        return null;
+    public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
+        try{
+            userDao.openSessionWithTransaction();
+            User user = userDao.findUserByUsername(name);
+            userDao.closeSessionWithTransaction();
+            List<SimpleGrantedAuthority> auths = new java.util.ArrayList<SimpleGrantedAuthority>();
+            auths.add(new SimpleGrantedAuthority("ROLE_USER"));
+            return new org.springframework.security.core.userdetails.User(user.getUserName(), user.getPassword(), auths);
+        } catch (DataBaseException e) {
+            userDao.closeSessionWithTransaction();
+            throw new  UsernameNotFoundException("Don't found user for this username or password");
+        }
     }
 }

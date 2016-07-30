@@ -1,12 +1,10 @@
 package com.phonebook.dao.Impl;
 
 import com.phonebook.dao.DataBaseException;
+import com.phonebook.dao.UserDao;
 import com.phonebook.model.User;
 import org.apache.log4j.Logger;
-import org.hibernate.SQLQuery;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
+import org.hibernate.*;
 import org.hibernate.type.StandardBasicTypes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
@@ -16,12 +14,13 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Repository
-public class UserDaoImpl {
+public class UserDaoImpl implements UserDao {
 
     private static final Logger LOG = Logger.getLogger(UserDaoImpl.class);
     private static String FIND_ALL = "from com.phonebook.model.User";
     private static String DELETE__ALL = "delete from com.phonebook.model.User";
     private static String SETVAL_SQL = "SELECT setval('person_id_seq', (SELECT MAX(id) FROM person))";
+    private static String FIND_BY_USERNAME = "from User as u where u.userName = :name";
 
     private Session currentSession;
     private Transaction currentTransaction;
@@ -106,6 +105,7 @@ public class UserDaoImpl {
         }
     }
 
+
     public void delete(User user) throws DataBaseException {
         if(getCurrentSession()!=null) {
             getCurrentSession().delete(user);
@@ -131,6 +131,19 @@ public class UserDaoImpl {
     public void deleteAll() throws DataBaseException {
         if(getCurrentSession()!=null) {
             getCurrentSession().createQuery(DELETE__ALL).list();
+        }
+        else {
+            LOG.error("Session does not opened");
+            throw new DataBaseException("Session does not opened");
+        }
+    }
+
+    @Override
+    public User findUserByUsername(String name) throws DataBaseException {
+        if(getCurrentSession()!=null) {
+            Query query = getCurrentSession().createQuery(FIND_BY_USERNAME);
+            query.setParameter("name",name);
+            return (User) query.uniqueResult();
         }
         else {
             LOG.error("Session does not opened");

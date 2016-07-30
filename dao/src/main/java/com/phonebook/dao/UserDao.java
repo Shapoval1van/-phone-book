@@ -6,15 +6,17 @@ import java.util.Set;
 
 public interface UserDao {
 
-    public void persist(User user);
+    public void persist(User user) throws DataBaseException;
 
-    public void update(User user);
+    public void update(User user) throws DataBaseException;
 
-    public User findById(int id);
+    public User findById(int id) throws DataBaseException;
 
-    public void delete(User user);
+    public void delete(User user) throws DataBaseException;
 
-    public Set<User> findAll();
+    public Set<User> findAll() throws DataBaseException;
 
-    public void deleteAll();
+    public void deleteAll() throws DataBaseException;
+
+    public User findUserByUsername(String name)throws DataBaseException;
 }
