@@ -28,78 +28,78 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         this.userDao = userDao;
     }
 
-    public void persist(User user)  {
+    public void persist(User user) {
         try {
             userDao.openSessionWithTransaction();
             userDao.persist(user);
             userDao.closeSessionWithTransaction();
-        }catch (DataBaseException e){
+        } catch (DataBaseException e) {
             userDao.getCurrentTransaction().rollback();
             userDao.closeSessionWithTransaction();
         }
     }
 
-    public void update(User user)  {
+    public void update(User user) {
         try {
             userDao.openSessionWithTransaction();
             userDao.update(user);
             userDao.closeSessionWithTransaction();
-        }catch (DataBaseException e){
+        } catch (DataBaseException e) {
             userDao.getCurrentTransaction().rollback();
             userDao.closeSessionWithTransaction();
         }
     }
 
-    public User findById(int id)  {
+    public User findById(int id) {
         try {
             userDao.openSessionWithTransaction();
-            User user =  userDao.findById(id);
+            User user = userDao.findById(id);
             userDao.closeSessionWithTransaction();
             return user;
-        }catch (DataBaseException e){
+        } catch (DataBaseException e) {
             userDao.getCurrentTransaction().rollback();
             userDao.closeSessionWithTransaction();
             return null;
         }
     }
 
-    public void delete(User user)  {
+    public void delete(User user) {
         try {
             userDao.openSessionWithTransaction();
             userDao.delete(user);
             userDao.closeSessionWithTransaction();
-        }catch (DataBaseException e){
+        } catch (DataBaseException e) {
             userDao.getCurrentTransaction().rollback();
             userDao.closeSessionWithTransaction();
         }
     }
 
-    public Set<User> findAll()  {
+    public Set<User> findAll() {
         try {
             userDao.openSessionWithTransaction();
             HashSet<User> useres = (HashSet<User>) userDao.findAll();
             userDao.closeSessionWithTransaction();
             return useres;
-        }catch (DataBaseException e){
+        } catch (DataBaseException e) {
             userDao.getCurrentTransaction().rollback();
             userDao.closeSessionWithTransaction();
             return null;
         }
     }
 
-    public void deleteAll()  {
+    public void deleteAll() {
         try {
             userDao.openSessionWithTransaction();
             userDao.deleteAll();
             userDao.closeSessionWithTransaction();
-        }catch (DataBaseException e){
+        } catch (DataBaseException e) {
             userDao.getCurrentTransaction().rollback();
             userDao.closeSessionWithTransaction();
         }
     }
 
     public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
-        try{
+        try {
             userDao.openSessionWithTransaction();
             User user = userDao.findUserByUsername(name);
             userDao.closeSessionWithTransaction();
@@ -108,7 +108,19 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             return new org.springframework.security.core.userdetails.User(user.getUserName(), user.getPassword(), auths);
         } catch (DataBaseException e) {
             userDao.closeSessionWithTransaction();
-            throw new  UsernameNotFoundException("Don't found user for this username or password");
+            throw new UsernameNotFoundException("Don't found user for this username or password");
+        }
+    }
+
+    public User findUserByUsername(String name) {
+        try {
+            userDao.openSessionWithTransaction();
+            User user = userDao.findUserByUsername(name);
+            userDao.closeSessionWithTransaction();
+            return user;
+        } catch (DataBaseException e) {
+            userDao.closeSessionWithTransaction();
+            return null;
         }
     }
 }

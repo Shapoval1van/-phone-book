@@ -4,6 +4,7 @@ import com.phonebook.model.Contact;
 import com.phonebook.model.User;
 import com.phonebook.service.Iml.ContactServiceImpl;
 import com.phonebook.service.Iml.GroupServiceImpl;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -17,6 +18,7 @@ import java.util.Set;
 @Controller
 @RequestMapping("/contact")
 public class ContactController {
+    private static final Logger LOG = Logger.getLogger(ContactController.class);
 
     private ContactServiceImpl contactService;
     private GroupServiceImpl groupService;

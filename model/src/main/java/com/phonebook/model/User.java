@@ -31,6 +31,9 @@ public class User implements Serializable {
     @OneToMany(mappedBy = "creator")
     private Set<Group> group;
 
+    @Transient
+    private String passwordConfirm;
+
     @Override
     public String toString() {
         return "User{" +
@@ -40,13 +43,12 @@ public class User implements Serializable {
                 "| userName='" + userName + '\'' +
                 "| password='" + password + '\'' +
                 "| contact=" + contact +
+                "| confPas="+ passwordConfirm +
                 '}';
     }
 
     public User() {
     }
-
-
 
     public Set<Group> getGroup() {
         return group;
@@ -104,5 +106,11 @@ public class User implements Serializable {
         this.password = password;
     }
 
+    public String getPasswordConfirm() {
+        return passwordConfirm;
+    }
 
+    public void setPasswordConfirm(String passwordConfirm) {
+        this.passwordConfirm = passwordConfirm;
+    }
 }
