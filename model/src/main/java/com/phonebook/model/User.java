@@ -6,14 +6,16 @@ import java.util.Set;
 
 @Entity
 @Table(name = "person")
+@org.hibernate.annotations.Entity(dynamicInsert = true)
 public class User implements Serializable {
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "person_id_seq")
+    @SequenceGenerator(name = "person_id_seq",sequenceName = "person_id_seq",allocationSize=1 )
     private Integer id;
 
     @OneToOne
-    @JoinColumn(name = "lang_id",nullable = false, referencedColumnName = "id")
+    @JoinColumn(name = "lang_id", referencedColumnName = "id")
     private Lang lang;
 
     @Column(name = "deleted")
@@ -48,6 +50,10 @@ public class User implements Serializable {
     }
 
     public User() {
+    }
+
+    public User(int id) {
+        this.id =  id;
     }
 
     public Set<Group> getGroup() {

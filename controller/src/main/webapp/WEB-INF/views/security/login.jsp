@@ -9,9 +9,9 @@
 <t:pageLayout title="${main_title}">
     <jsp:attribute name="bodyLayout">
         <c:set var="logUrl" value="/j_spring_security_check"/>
-         <div class="container col-xs-offset-3">
-             <div class="row">
-                 <div class="col-xs-12 col-sm-12 col-lg-6">
+        <div class="container">
+            <div class="row">
+                 <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
                      <div class="panel panel-primary">
                          <div class="panel-heading">
                              <h3 class="panel-title">

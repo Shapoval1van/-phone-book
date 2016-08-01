@@ -3,6 +3,7 @@ package com.phoonebook.dao;
 
 import com.phonebook.dao.DataBaseException;
 import com.phonebook.dao.Impl.UserDaoImpl;
+import com.phonebook.model.User;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,6 +27,23 @@ public class UserDaoTest {
             userDao.closeSessionWithTransaction();
         } catch (DataBaseException e) {
             e.printStackTrace();
+        }
+    }
+    @Test
+    public void persistTest(){
+        try {
+            User user = new User();
+            user.setUserName("Guriamare");
+            user.setPassword("123456q");
+            user.setPasswordConfirm("1234567q");
+            userDao.openSessionWithTransaction();
+            userDao.persist(user);
+            Assert.assertTrue(userDao.findById(4).getUserName().equals(user.getUserName()));
+            userDao.delete(new User(4));
+            userDao.closeSessionWithTransaction();
+        }catch (DataBaseException e){
+            userDao.getCurrentTransaction().rollback();
+            userDao.closeSessionWithTransaction();
         }
     }
 }   

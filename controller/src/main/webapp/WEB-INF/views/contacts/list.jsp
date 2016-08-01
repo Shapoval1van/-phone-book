@@ -9,7 +9,7 @@
 <t:pageLayout title="${contact_title}">
     <jsp:attribute name="bodyLayout">
         <div class="container" id="main">
-            <div class="col-xs-offset-12">
+            <div class="col-xs-offset-11">
                 <a class="btn btn-primary" href="#"><spring:message code="list.button"/></a>
             </div>
             <div class="col-xs-3">
