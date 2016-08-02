@@ -56,6 +56,10 @@ public class User implements Serializable {
         this.id =  id;
     }
 
+    public User(String userName){
+        this.userName = userName;
+    }
+
     public Set<Group> getGroup() {
         return group;
     }

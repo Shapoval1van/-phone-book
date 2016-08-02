@@ -19,4 +19,6 @@ public interface ContactService {
     public void deleteAll();
 
     public Set<Contact> findAllByCteator(User user);
+
+    public boolean isExistForThisCreator(int userId, int contactId);
 }

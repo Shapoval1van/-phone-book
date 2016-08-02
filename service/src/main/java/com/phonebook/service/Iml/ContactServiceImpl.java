@@ -103,4 +103,9 @@ public class ContactServiceImpl implements ContactService{
             return null;
         }
     }
+
+    public boolean isExistForThisCreator(int userId, final int contactId){
+        Set<Contact> contacts = this.findAllByCteator(new User(userId));
+        return contacts.stream().anyMatch((contact)-> contact.getId() == contactId);
+    }
 }
