@@ -59,8 +59,11 @@
                 <div class="col-xs-3 col-xs-offset-4">
                     <a class="btn btn-default" href="/contact"><spring:message code="contact.show.back"/> </a>
                 </div>
+                <spring:url value="/contact/id{contact_id}/edit" var="edit_url">
+                    <spring:param name="contact_id" value="${contact.getId()}"/>
+                </spring:url>
                 <div class="col-xs-3 ">
-                    <a class="btn btn-primary" href="#"><spring:message code="contact.show.edit"/> </a>
+                    <a class="btn btn-primary" href="${edit_url}"><spring:message code="contact.show.edit"/> </a>
                 </div>
             </div>
         </div>

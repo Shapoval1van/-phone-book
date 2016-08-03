@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.security.Principal;
 import java.util.Set;
 
 @Controller
@@ -49,9 +50,8 @@ public class ContactController {
 
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(method = RequestMethod.GET)
-    public String getContactsList(Model model){
-        User user = new User();
-        user.setId(1);
+    public String getContactsList(Model model, Principal principal){
+        User user = userService.findUserByUsername(principal.getName());
         Set<Contact> contacts = contactService.findAllByCteator(user);
         model.addAttribute("contacts",contacts);
         model.addAttribute("groups",groupService.findByUserId(1));
@@ -60,9 +60,10 @@ public class ContactController {
     
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "/id{id}",  method = RequestMethod.GET)
-    public String showContact(@PathVariable("id") int id, Model model, final RedirectAttributes){
+    public String showContact(@PathVariable("id") int id, Model model, Principal principal,
+                              final RedirectAttributes redirectAttributes){
         if(contactService.isExistForThisCreator(
-                userService.findUserByUsername(securityService.findLoggedInUsername()).getId(), id)){
+                userService.findUserByUsername(principal.getName()).getId(), id)){
             model.addAttribute("contact",contactService.findById(id));
             return "contacts/show";
         }else {
@@ -71,8 +72,15 @@ public class ContactController {
     }
 
     @PreAuthorize("isAuthenticated()")
-    @RequestMapping(value = "id{id}/edit")
-    public String editcontact(@PathVariable("id") int id, Model model){
-        return "contact/edit";
+    @RequestMapping(value = "id{id}/edit", method = RequestMethod.GET)
+    public String editcontact(@PathVariable("id") int id, Model model,Principal principal, final  RedirectAttributes redirectAttributes){
+        if(contactService.isExistForThisCreator(
+                userService.findUserByUsername(principal.getName()).getId(), id)){
+            model.addAttribute("contact",contactService.findById(id));
+            model.addAttribute("contactForm", new Contact());
+            return "contacts/edit";
+        }else {
+            return "redirect:/contact";
+        }
     }
 }

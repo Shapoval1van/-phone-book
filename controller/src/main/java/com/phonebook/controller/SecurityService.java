@@ -38,7 +38,6 @@ public class SecurityService {
         if (userDetails instanceof UserDetails) {
             return ((UserDetails)userDetails).getUsername();
         }
-
         return null;
     }
 
