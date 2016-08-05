@@ -35,7 +35,7 @@ public class AddressServiceImpl implements AddressDao {
         }
     }
 
-    public void update(Address address) throws DataBaseException {
+    public void update(Address address){
         try {
             addressDao.openSessionWithTransaction();
             addressDao.update(address);
@@ -59,7 +59,7 @@ public class AddressServiceImpl implements AddressDao {
         }
     }
 
-    public void delete(Address address) throws DataBaseException {
+    public void delete(Address address)  {
         try {
             addressDao.openSessionWithTransaction();
             addressDao.delete(address);

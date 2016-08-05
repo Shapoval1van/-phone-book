@@ -16,7 +16,7 @@ public class Contact implements Serializable {
     @JoinColumn(name = "address", nullable = true, referencedColumnName = "id")
     private Address address;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "creator_id", referencedColumnName = "id")
     private User creator;
 

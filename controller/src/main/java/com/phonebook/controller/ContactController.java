@@ -1,7 +1,9 @@
 package com.phonebook.controller;
 
+import com.phonebook.model.Address;
 import com.phonebook.model.Contact;
 import com.phonebook.model.User;
+import com.phonebook.service.Iml.AddressServiceImpl;
 import com.phonebook.service.Iml.ContactServiceImpl;
 import com.phonebook.service.Iml.GroupServiceImpl;
 import com.phonebook.service.Iml.UserServiceImpl;
@@ -10,6 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -27,6 +32,12 @@ public class ContactController {
     private GroupServiceImpl groupService;
     private SecurityService securityService;
     private UserServiceImpl userService;
+    private AddressServiceImpl addressService;
+
+    @Autowired
+    public void setAddressService(AddressServiceImpl addressService) {
+        this.addressService = addressService;
+    }
 
     @Autowired
     public void setUserService(UserServiceImpl userService) {
@@ -73,14 +84,40 @@ public class ContactController {
 
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "id{id}/edit", method = RequestMethod.GET)
-    public String editcontact(@PathVariable("id") int id, Model model,Principal principal, final  RedirectAttributes redirectAttributes){
+    public String editContact(@PathVariable("id") int id, ModelMap map, Principal principal, final  RedirectAttributes redirectAttributes){
         if(contactService.isExistForThisCreator(
                 userService.findUserByUsername(principal.getName()).getId(), id)){
-            model.addAttribute("contact",contactService.findById(id));
-            model.addAttribute("contactForm", new Contact());
+            map.addAttribute("contact",contactService.findById(id));
+//            map.addAttribute("address",new Address());
+            map.addAttribute("contactForm", new Contact());
             return "contacts/edit";
         }else {
             return "redirect:/contact";
         }
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @RequestMapping(value = "id{id}/edit", method = RequestMethod.POST)
+    public String editContact( @ModelAttribute("contactForm")
+                                   Contact contact, BindingResult result,@PathVariable("id") int id, Model model,
+                               final RedirectAttributes redirectAttributes, Principal principal){
+        if(contactService.isExistForThisCreator(
+                userService.findUserByUsername(principal.getName()).getId(), id)){
+            Address oldAddress =  contactService.findById(id).getAddress();
+            Address newAddress =  new Address();
+            if(oldAddress!=null){
+//              addressService.delete(oldAddress);
+                newAddress.setId(oldAddress.getId());
+                newAddress.setCountryName(contact.getAddress().getCountryName());
+                newAddress.setCityName(contact.getAddress().getCityName());
+                newAddress.setStreetsName(contact.getAddress().getStreetsName());
+//                addressService.update(newAddress);
+                contact.setAddress(newAddress);
+            }
+            return "contacts/edit";
+        }else {
+            return "redirect:/contact";
+        }
+
     }
 }
