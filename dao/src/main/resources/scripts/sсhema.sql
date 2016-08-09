@@ -40,7 +40,7 @@ CREATE TABLE IF NOT EXISTS contact (
   last_name     VARCHAR(15) NOT NULL,
   mobil_phone   VARCHAR(20) NOT NULL,
   home_phone    VARCHAR(20),
-  email         VARCHAR(20),
+  email         VARCHAR(40),
   date_creating DATE        NOT NULL,
   address       INT,
   group_id      INT,

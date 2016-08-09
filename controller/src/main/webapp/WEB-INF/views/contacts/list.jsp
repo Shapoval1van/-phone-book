@@ -10,7 +10,7 @@
     <jsp:attribute name="bodyLayout">
         <div class="container" id="main">
             <div class="col-xs-offset-11">
-                <a class="btn btn-primary" href="#"><spring:message code="list.button"/></a>
+                <a class="btn btn-primary" href="/contact/create"><spring:message code="list.button"/></a>
             </div>
             <div class="col-xs-3">
                 <div class="panel panel-primary">

@@ -9,10 +9,11 @@ import java.util.Date;
 public class Contact implements Serializable {
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "contact_id_seq")
+    @SequenceGenerator(name = "contact_id_seq",sequenceName = "contact_id_seq",allocationSize=1 )
     private Integer id;
 
-    @OneToOne(fetch=FetchType.EAGER)
+    @OneToOne(fetch=FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "address", nullable = true, referencedColumnName = "id")
     private Address address;
 
@@ -38,7 +39,7 @@ public class Contact implements Serializable {
     @Column(name = "date_creating")
     private Date dateCreating;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "group_id", referencedColumnName = "id")
     private Group group;
 

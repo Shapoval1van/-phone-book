@@ -13,6 +13,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import java.util.HashSet;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:test-context.xml")
@@ -49,12 +50,14 @@ public class AddressDaoTest {
     }
 
     @Test
-    public void persistDeleteTest() {
+    public void findByFormDataTest(){
         try {
             Address address = new Address(4, "Ukrain","BZ","metall");
             addressDao.openSessionWithTransaction();
             addressDao.persist(address);
-            assertEquals(address.getCountryName(), addressDao.findById(4).getCountryName());
+            Address findAddress = addressDao.findByFormData("Ukrain","BZ","metall");
+            assertEquals(findAddress.getCountryName(),address.getCountryName());
+            assertNull(addressDao.findByFormData("Ukrain","BZ","mell"));
             addressDao.delete(address);
         } catch (DataBaseException e) {
             addressDao.closeSessionWithTransaction();

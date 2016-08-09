@@ -17,4 +17,6 @@ public interface AddressDao {
     public Set<Address> findAll() throws DataBaseException;
 
     public void deleteAll() throws DataBaseException;
+
+    public Address findByFormData(String country, String city, String streets) throws DataBaseException;
 }

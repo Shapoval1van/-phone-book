@@ -79,7 +79,7 @@ public class ContactDaoImpl {
 
     public void persist(Contact contact) throws DataBaseException {
         if(getCurrentSession()!=null) {
-            getCurrentSession().saveOrUpdate(contact);
+            getCurrentSession().save(contact);
         }
         else {
             LOG.error("Session does not opened");

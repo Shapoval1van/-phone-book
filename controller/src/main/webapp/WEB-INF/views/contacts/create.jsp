@@ -11,24 +11,18 @@
     <jsp:attribute name="bodyLayout">
         <div class="container" id="main">
             <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
-                <spring:url value="/contact/id{contact_id}/edit" var="edit_url">
-                    <spring:param name="contact_id" value="${contact.getId()}"/>
-                </spring:url>
-                <form:form role="form" commandName="contactForm" cssClass="form-horizontal" action="${edit_url}" method="POST">
-                    <h2><spring:message code="contact.show.edit"/></h2>
+                <spring:url value="/contact/create" var="create_url"/>
+                <form:form role="form" commandName="contactForm" cssClass="form-horizontal" action="${create_url}" method="POST">
+                    <h2><spring:message code="create.title"/></h2>
                     <hr class="colorgraph">
-                    <c:if test="${edit_message == true}">
-                        <spring:message code="edit.message" var="message"/>
-                        <c:out value="${message}"/>
-                    </c:if>
                     <spring:bind path="firstName" >
                         <div class="form-group">
                             <spring:message code="contact.show.firstName" var="FN"/>
                             <label for="firstName" class="col-sm-3 col-lg-2 control-label">${FN}</label>
-                                    <form:errors path="firstName" cssClass="error-text"/>
+                            <form:errors path="firstName" cssClass="error-text"/>
                             <div class="col-sm-9 col-lg-10">
                                 <form:input path="firstName" type="text" name="firstName" id="firstName"
-                                                cssClass="form-control input-lg"  required="required" placeholder="${FN}" tabindex="1" />
+                                            cssClass="form-control input-lg"  required="required" placeholder="${FN}" tabindex="1" />
                             </div>
                         </div>
                     </spring:bind>
@@ -36,7 +30,7 @@
                         <div class="form-group">
                             <spring:message code="contact.show.secondName" var="SN"/>
                             <label for="lastName" class="col-sm-3  col-lg-2 control-label">${SN}</label>
-                                <form:errors path="lastName" cssClass="error-text"/>
+                            <form:errors path="lastName" cssClass="error-text"/>
                             <div class="col-sm-9 col-lg-10">
                                 <form:input path="lastName" type="text" name="lastName" id="lastName"
                                             cssClass="form-control input-lg"  required="required" placeholder="${SN}" tabindex="2" />
@@ -47,7 +41,7 @@
                         <div class="form-group">
                             <spring:message code="contact.show.home" var="HP"/>
                             <label for="homePhone" class="col-sm-3  col-lg-2 control-label">${HP}</label>
-                                <form:errors path="homePhone" cssClass="error-text"/>
+                            <form:errors path="homePhone" cssClass="error-text"/>
                             <div class="col-sm-9 col-lg-10">
                                 <form:input path="homePhone" type="text" name="homePhone" id="homePhone"
                                             cssClass="form-control input-lg"  placeholder="${HP}" tabindex="3" />
@@ -66,15 +60,15 @@
                         </div>
                     </spring:bind>
                     <spring:bind path="email">
-                    <div class="form-group">
-                        <spring:message code="contact.show.email" var="email"/>
-                        <label for="mobilPhone" class="col-sm-3  col-lg-2 control-label">${email}</label>
+                        <div class="form-group">
+                            <spring:message code="contact.show.email" var="email"/>
+                            <label for="mobilPhone" class="col-sm-3  col-lg-2 control-label">${email}</label>
                             <form:errors path="email" cssClass="error-text"/>
-                        <div class="col-sm-9 col-lg-10">
-                            <form:input path="email" type="email" name="email" id="email"
-                                        cssClass="form-control input-lg" required="required" placeholder="${email}" tabindex="4" />
+                            <div class="col-sm-9 col-lg-10">
+                                <form:input path="email" type="email" name="email" id="email"
+                                            cssClass="form-control input-lg" required="required" placeholder="${email}" tabindex="4" />
+                            </div>
                         </div>
-                    </div>
                     </spring:bind>
                     <spring:bind path="address.countryName">
                         <spring:message code="contact.show.country" var="country"/>
@@ -118,24 +112,14 @@
                                     <form:option  value="" label="  "/>
                                     <form:options items="${groups}" itemValue="id" itemLabel="groupName"/>
                                 </form:select>
-                                <%--<form:input path="group.groupName" type="text" name="streets" id="streets"
-                                            cssClass="form-control input-lg" placeholder="${streets}" tabindex="8" />--%>
+                                    <%--<form:input path="group.groupName" type="text" name="streets" id="streets"
+                                                cssClass="form-control input-lg" placeholder="${streets}" tabindex="8" />--%>
                             </div>
                         </div>
                     </spring:bind>
-                    <script type="text/javascript">
-                        $("#firstName").val("${contact.getFirstName()}");
-                        $("#lastName").val("${contact.getLastName()}");
-                        $("#homePhone").val("${contact.getHomePhone()}");
-                        $("#mobilPhone").val("${contact.getMobilPhone()}");
-                        $("#email").val("${contact.getEmail()}");
-                        $("#country").val("${contact.getAddress().getCountryName()}");
-                        $("#city").val("${contact.getAddress().getCityName()}");
-                        $("#streets").val("${contact.getAddress().getStreetsName()}")
-                    </script>
                     <div class="row">
-                        <spring:message code="contact.show.edit" var="edit"/>
-                        <%--<div class="col-xs-6 col-md-6"><a href="/login" class="btn btn-primary btn-block btn-lg"><spring:message code="reg.button"/></a></div>--%>
+                        <spring:message code="create.button" var="edit"/>
+                            <%--<div class="col-xs-6 col-md-6"><a href="/login" class="btn btn-primary btn-block btn-lg"><spring:message code="reg.button"/></a></div>--%>
                         <div ><input type="submit" value="${edit}" class="btn btn-success btn-block btn-lg" tabindex="8"></div>
                     </div>
                 </form:form>

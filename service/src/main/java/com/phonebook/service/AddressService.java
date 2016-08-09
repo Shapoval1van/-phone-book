@@ -18,4 +18,6 @@ public interface AddressService {
     public Set<Address> findAll();
 
     public void deleteAll();
+
+    public Address findByFormData(String country, String city, String streets);
 }

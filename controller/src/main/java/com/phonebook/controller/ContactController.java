@@ -1,5 +1,6 @@
 package com.phonebook.controller;
 
+import com.phonebook.controller.validators.ContactValidator;
 import com.phonebook.model.Address;
 import com.phonebook.model.Contact;
 import com.phonebook.model.User;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
+import java.util.Date;
 import java.util.Set;
 
 @Controller
@@ -33,6 +35,12 @@ public class ContactController {
     private SecurityService securityService;
     private UserServiceImpl userService;
     private AddressServiceImpl addressService;
+    private ContactValidator contactValidator;
+
+    @Autowired
+    public void setContactValidator(ContactValidator contactValidator) {
+        this.contactValidator = contactValidator;
+    }
 
     @Autowired
     public void setAddressService(AddressServiceImpl addressService) {
@@ -85,10 +93,10 @@ public class ContactController {
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "id{id}/edit", method = RequestMethod.GET)
     public String editContact(@PathVariable("id") int id, ModelMap map, Principal principal, final  RedirectAttributes redirectAttributes){
-        if(contactService.isExistForThisCreator(
-                userService.findUserByUsername(principal.getName()).getId(), id)){
+        int userId = userService.findUserByUsername(principal.getName()).getId();
+        if(contactService.isExistForThisCreator(userId, id)){
             map.addAttribute("contact",contactService.findById(id));
-//            map.addAttribute("address",new Address());
+            map.addAttribute("groups", groupService.findByUserId(userId));
             map.addAttribute("contactForm", new Contact());
             return "contacts/edit";
         }else {
@@ -101,23 +109,72 @@ public class ContactController {
     public String editContact( @ModelAttribute("contactForm")
                                    Contact contact, BindingResult result,@PathVariable("id") int id, Model model,
                                final RedirectAttributes redirectAttributes, Principal principal){
-        if(contactService.isExistForThisCreator(
-                userService.findUserByUsername(principal.getName()).getId(), id)){
-            Address oldAddress =  contactService.findById(id).getAddress();
+        int userId = userService.findUserByUsername(principal.getName()).getId();
+        Contact oldContact = contactService.findById(id);
+        contactValidator.validate(contact, result);
+        if(result.hasErrors()){
+            model.addAttribute("contact",oldContact);
+            model.addAttribute("groups", groupService.findByUserId(userId));
+            return "contacts/edit";
+        }
+        if(contactService.isExistForThisCreator(userId, id)){
+            Address oldAddress =  oldContact.getAddress();
             Address newAddress =  new Address();
             if(oldAddress!=null){
-//              addressService.delete(oldAddress);
                 newAddress.setId(oldAddress.getId());
                 newAddress.setCountryName(contact.getAddress().getCountryName());
                 newAddress.setCityName(contact.getAddress().getCityName());
                 newAddress.setStreetsName(contact.getAddress().getStreetsName());
-//                addressService.update(newAddress);
+                addressService.update(newAddress);
                 contact.setAddress(newAddress);
             }
+            contact.setCreator(oldContact.getCreator());
+            contact.setDateCreating(new Date(System.currentTimeMillis()));
+//            contact.setGroup(groupService.findById(contact.getGroup().getId()));
+            if(contact.getGroup().getId()==null){
+                contact.setGroup(null);
+            }
+            contactService.update(contact);
+            model.addAttribute("contact",contact);
+            model.addAttribute("groups", groupService.findByUserId(userId));
+            model.addAttribute("edit_message",true);
             return "contacts/edit";
         }else {
             return "redirect:/contact";
         }
 
     }
+
+    @PreAuthorize("isAuthenticated()")
+    @RequestMapping(value = "/create", method = RequestMethod.GET)
+    public  String createContact(ModelMap map, Principal principal){
+        int userId = userService.findUserByUsername(principal.getName()).getId();
+        map.addAttribute("contactForm", new Contact());
+        map.addAttribute("groups", groupService.findByUserId(userId));
+        return "contacts/create";
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @RequestMapping(value = "/create", method = RequestMethod.POST)
+    public  String createContact( @ModelAttribute("contactForm") Contact contact, BindingResult result,
+            ModelMap map, Principal principal, final RedirectAttributes redirectAttributes){
+        int userId = userService.findUserByUsername(principal.getName()).getId();
+        contactValidator.validate(contact,result);
+        if(result.hasErrors()){
+            return  "contacts/create";
+        }
+        contact.setDateCreating(new Date(System.currentTimeMillis()));
+        contact.setCreator(userService.findById(userId));
+        Address existAddress = addressService.findByFormData(contact.getAddress().getCountryName(),
+                contact.getAddress().getCityName(), contact.getAddress().getStreetsName());
+        if(existAddress != null){
+            contact.setAddress(existAddress);
+        }
+        if(contact.getGroup().getId()==null){
+            contact.setGroup(null);
+        }
+        contactService.persist(contact);
+        return "redirect:/contact";
+    }
+
 }

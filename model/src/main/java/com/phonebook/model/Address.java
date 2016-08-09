@@ -7,10 +7,12 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "address")
+@org.hibernate.annotations.Entity(dynamicInsert = true)
 public class Address implements Serializable{
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "address_id_seq")
+    @SequenceGenerator(name = "address_id_seq",sequenceName = "address_id_seq",allocationSize=1 )
     private Integer id;
 
     @Column(name = "country_name", length = 30)

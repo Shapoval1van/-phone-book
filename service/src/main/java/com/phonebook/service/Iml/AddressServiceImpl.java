@@ -93,4 +93,18 @@ public class AddressServiceImpl implements AddressDao {
             addressDao.closeSessionWithTransaction();
         }
     }
+
+    @Override
+    public Address findByFormData(String country, String city, String streets){
+        try {
+            addressDao.openSessionWithTransaction();
+            Address address = addressDao.findByFormData(country,city,streets);
+            addressDao.closeSessionWithTransaction();
+            return address;
+        }catch (DataBaseException e){
+            addressDao.getCurrentTransaction().rollback();
+            addressDao.closeSessionWithTransaction();
+            return null;
+        }
+    }
 }
