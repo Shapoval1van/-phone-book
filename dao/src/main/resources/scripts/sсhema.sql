@@ -5,11 +5,11 @@ CREATE TABLE IF NOT EXISTS lang (
 );
 
 CREATE TABLE IF NOT EXISTS person (
-  id            SERIAL      NOT NULL UNIQUE,
-  user_name     VARCHAR(15) NOT NULL,
+  id            SERIAL       NOT NULL UNIQUE,
+  user_name     VARCHAR(15)  NOT NULL,
   user_password VARCHAR(255) NOT NULL,
-  lang_id       INTEGER     NOT NULL DEFAULT (1),
-  deleted       BOOLEAN              DEFAULT (FALSE),
+  lang_id       INTEGER      NOT NULL DEFAULT (1),
+  deleted       BOOLEAN               DEFAULT (FALSE),
   PRIMARY KEY (id),
   CONSTRAINT fk_lang
   FOREIGN KEY (lang_id)
@@ -19,8 +19,8 @@ CREATE TABLE IF NOT EXISTS person (
 CREATE TABLE IF NOT EXISTS address (
   id           SERIAL      NOT NULL UNIQUE,
   country_name VARCHAR(30) NOT NULL,
-  city_name    VARCHAR(30),
-  streets_name VARCHAR(40),
+  city_name    VARCHAR(30) DEFAULT NULL,
+  streets_name VARCHAR(40) DEFAULT NULL,
   PRIMARY KEY (id)
 );
 

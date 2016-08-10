@@ -21,8 +21,10 @@ public class AddressDaoImpl implements AddressDao {
     private static final String FIND_ALL = "from com.phonebook.model.Address";
     private static final String DELETE__ALL = "delete from com.phonebook.model.Address";
     private static final String SETVAL_SQL = "SELECT setval('address_id_seq', (SELECT MAX(id) FROM address))";
-    private static final String FIND_BY_FORM_DATA = "from com.phonebook.model.Address as A where A.cityName = :city and " +
-            "A.countryName = :country and A.streetsName = :street";
+    private static final String FIND_BY_FORM_DATA = "from com.phonebook.model.Address as A " +
+            "where A.countryName = :country and"+
+            " ((A.cityName is null  and :city is null) or A.cityName = :city) and" +
+            " ((A.streetsName is null and :street is null ) or A.streetsName = :street)";
 
     private Session currentSession;
     private Transaction currentTransaction;
@@ -84,6 +86,8 @@ public class AddressDaoImpl implements AddressDao {
 
     public void persist(Address address) throws DataBaseException {
         if (getCurrentSession() != null) {
+            address.setCityName(address.getCityName().equals("") ? null : address.getCityName());
+            address.setStreetsName(address.getStreetsName().equals("") ? null : address.getStreetsName());
             getCurrentSession().save(address);
         } else {
             LOG.error("Session does not opened");
