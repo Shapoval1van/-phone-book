@@ -5,7 +5,8 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<t:pageLayout title="Главная">
+<spring:message code="contact.show.title" var="contact"/>
+<t:pageLayout title="${contact}">
     <jsp:attribute name="bodyLayout">
         <div class="container">
             <div class="panel panel-success">

@@ -17,7 +17,7 @@ http://www.springframework.org/schema/security/spring-security.xsd">
                     password-parameter="j_password"
                     default-target-url = "/contact"
                     always-use-default-target="true"/>
-        <logout logout-success-url="/contact"/>
+        <logout />
     </http>
 
     <authentication-manager id = "in-memory-auth">

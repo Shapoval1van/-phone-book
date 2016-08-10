@@ -11,6 +11,7 @@
         <module>controller</module>
         <module>dao</module>
         <module>model</module>
+        <module>service</module>
         <!--<module>service</module>-->
         <!--    <module>jdbcTemplate</module>-->
     </modules>

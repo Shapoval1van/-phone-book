@@ -1,11 +1,12 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@tag description="Page Template" pageEncoding="UTF-8"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
-
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@attribute name="title"%>
 <%@attribute name="bodyLayout" fragment="true" %>
 
 <html>
+<csrf disabled="true"/>
 <title>${title}</title>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css"/>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/style.css"/>
@@ -44,11 +45,9 @@
                     <ul class="nav navbar-nav col-md-3 col-xs-offset-6">
                         <li><a href="${pageContext.request.contextPath}/contact"><spring:message code="navbar.contact"/></a></li>
                     </ul>
-                    <ul class="nav navbar-nav col-md-3 col-xs-offset-8">
-                        <li><a href="#"><spring:message code="navbar.profile"/> </a></li>
-                    </ul>
                     <ul class="nav navbar-nav col-md-3 col-xs-offset-7">
-                        <li><a href="#"><spring:message code="navbar.exit"/></a></li>
+                        <c:url value="/j_spring_security_logout" var="logoutUrl" />
+                        <li><a id="exit" href="<c:url value="${logoutUrl}" />"><spring:message code="navbar.exit"/></a></li>
                     </ul>
                 </div><!-- /.navbar-collapse -->
             </div><!-- /.container-fluid -->
