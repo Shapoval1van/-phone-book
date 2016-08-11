@@ -1,33 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
+<beans
+        xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
     <context:component-scan base-package="com.phonebook.dao" />
-    <bean id="myDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
-        <property name="driverClassName" value="org.postgresql.Driver" />
-        <property name="url" value="jdbc:postgresql://localhost:5432/postgres" />
-        <property name="username" value="postgres" />
-        <property name="password" value="a1f10g" />
-        <property name="initialSize" value="20" />
-        <property name="maxActive" value="100"/>
-    </bean>
-    <bean id="mySessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
-        <property name="dataSource" ref="myDataSource"/>
-        <property name="hibernateProperties">
-            <props>
-                <prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQL94Dialect</prop>
-                <prop key="hibernate.show_sql">true</prop>
-            </props>
-        </property>
-        <property name="annotatedClasses">
-            <list>
-                <value>com.phonebook.model.Address</value>
-                <value>com.phonebook.model.Contact</value>
-                <value>com.phonebook.model.User</value>
-                <value>com.phonebook.model.Lang</value>
-                <value>com.phonebook.model.Group</value>
-            </list>
-        </property>
-    </bean>
+    <beans profile="dev">
+        <bean id="myDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+            <property name="driverClassName" value="org.postgresql.Driver" />
+            <property name="url" value="jdbc:postgresql://localhost:5432/postgres" />
+            <property name="username" value="postgres"/>
+            <property name="password" value="a1f10g" />
+            <property name="initialSize" value="20" />
+            <property name="maxActive" value="100"/>
+        </bean>
+        <bean id="mySessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+            <property name="dataSource" ref="myDataSource"/>
+            <property name="hibernateProperties">
+                <props>
+                    <prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQL94Dialect</prop>
+                    <prop key="hibernate.show_sql">true</prop>
+                </props>
+            </property>
+            <property name="annotatedClasses">
+                <list>
+                    <value>com.phonebook.model.Address</value>
+                    <value>com.phonebook.model.Contact</value>
+                    <value>com.phonebook.model.User</value>
+                    <value>com.phonebook.model.Lang</value>
+                    <value>com.phonebook.model.Group</value>
+                </list>
+            </property>
+        </bean>
+    </beans>
+
+
+    <beans profile="prod">
+        <bean id="myDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+            <property name="driverClassName" value="org.postgresql.Driver" />
+            <property name="url" value="jdbc:postgresql://ec2-54-217-244-3.eu-west-1.compute.amazonaws.com:5432/dd7fedlt84359n?ssl=true&amp;sslmode=requiree&amp;sslfactory=org.postgresql.ssl.NonValidatingFactory}" />
+            <property name="username" value="waplxbnlvdiqqp"/>
+            <property name="password" value="5DUxJVH5A9h7OZBieBc1l-Z_M3" />
+            <property name="initialSize" value="20" />
+            <property name="maxActive" value="100"/>
+        </bean>
+        <bean id="mySessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+            <property name="dataSource" ref="myDataSource"/>
+            <property name="hibernateProperties">
+                <props>
+                    <prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQL94Dialect</prop>
+                    <prop key="hibernate.show_sql">true</prop>
+                </props>
+            </property>
+            <property name="annotatedClasses">
+                <list>
+                    <value>com.phonebook.model.Address</value>
+                    <value>com.phonebook.model.Contact</value>
+                    <value>com.phonebook.model.User</value>
+                    <value>com.phonebook.model.Lang</value>
+                    <value>com.phonebook.model.Group</value>
+                </list>
+            </property>
+        </bean>
+    </beans>
+
+
+    
 </beans>

@@ -29,8 +29,7 @@ http://www.springframework.org/schema/security/spring-security.xsd">
     </authentication-manager>
     <authentication-manager id="dao-auth">
         <authentication-provider user-service-ref="userServiceImpl">
-            <!--<password-encoder ref="encoder"></password-encoder>-->
-        </authentication-provider>
+                  </authentication-provider>
     </authentication-manager>
     <beans:bean id="encoder"
                 class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
