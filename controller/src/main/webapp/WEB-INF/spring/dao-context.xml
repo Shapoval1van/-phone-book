@@ -38,7 +38,7 @@
     <beans profile="prod">
         <bean id="myDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
             <property name="driverClassName" value="org.postgresql.Driver" />
-            <property name="url" value="jdbc:postgresql://ec2-54-217-244-3.eu-west-1.compute.amazonaws.com:5432/dd7fedlt84359n?ssl=true&amp;sslmode=requiree&amp;sslfactory=org.postgresql.ssl.NonValidatingFactory}" />
+            <property name="url" value="jdbc:postgresql://ec2-54-217-244-3.eu-west-1.compute.amazonaws.com:5432/dd7fedlt84359n?ssl=true&amp;sslfactory=org.postgresql.ssl.NonValidatingFactory" />
             <property name="username" value="waplxbnlvdiqqp"/>
             <property name="password" value="5DUxJVH5A9h7OZBieBc1l-Z_M3" />
             <property name="initialSize" value="20" />

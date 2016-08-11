@@ -4,7 +4,10 @@ import com.phonebook.dao.AddressDao;
 import com.phonebook.dao.DataBaseException;
 import com.phonebook.model.Address;
 import org.apache.log4j.Logger;
-import org.hibernate.*;
+import org.hibernate.SQLQuery;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.hibernate.type.StandardBasicTypes;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -97,6 +100,8 @@ public class AddressDaoImpl implements AddressDao {
 
     public void update(Address address) throws DataBaseException {
         if (getCurrentSession() != null) {
+            address.setCityName(address.getCityName().equals("") ? null : address.getCityName());
+            address.setStreetsName(address.getStreetsName().equals("") ? null : address.getStreetsName());
             getCurrentSession().update(address);
         } else {
             LOG.error("Session does not opened");
@@ -157,7 +162,7 @@ public class AddressDaoImpl implements AddressDao {
             }else {
                 query.setParameter("street", streets);
             }
-            return (Address) query.getSingleResult();
+            return (Address) query.uniqueResult();
         } else {
             LOG.error("Session does not opened");
             throw new DataBaseException("Session does not opened");
