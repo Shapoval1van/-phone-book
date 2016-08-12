@@ -20,7 +20,11 @@
                     <div class="panel-body">
                         <ul>
                             <c:forEach items="${groups}" var="group">
-                                <li><a href="#" class="list-group-item">${group.getGroupName()}</a></li>
+                                <li><span class="list-group-item"><a href="#" >${group.getGroupName()}</a>
+                                    <c:if test="${group.getDefault() == false}">
+                                        <a href="/delete-id${group.getId()}"><img class="delete" src="${pageContext.request.contextPath}/resources/image/trash-empty.png"></a>
+                                    </c:if>
+                                    </span></li>
                             </c:forEach>
                             <li><a class="list-group-item" href="/create-group"><spring:message code="list.addGroup"/></a></li>
                         </ul>

@@ -10,7 +10,7 @@ public class  Group  implements Serializable {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "group_c_id_seq")
-    @SequenceGenerator(name = "group_c_id_seq",sequenceName = "group_c_id_seq", allocationSize=1 )
+    @SequenceGenerator(name = "group_c_id_seq", sequenceName = "group_c_id_seq", allocationSize=1 )
     private Integer id;
 
     @Column(name = "group_name")
@@ -51,7 +51,7 @@ public class  Group  implements Serializable {
     }
 
     public Boolean getDefault() {
-        return isDefault;
+        return this.isDefault;
     }
 
     public void setDefault(Boolean aDefault) {

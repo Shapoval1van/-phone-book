@@ -24,7 +24,7 @@ public class ContactDaoImpl {
     private static final Logger LOG = Logger.getLogger(ContactDao.class);
     private static String FIND_ALL = "from Contact";
     private static String FIND_ALL_BY_CREATOR = "from Contact as c where c.creator.id=:id";
-    private static String SETVAL_SQL = "SELECT setval('contact_id_seq', (SELECT MAX(id) FROM contact))";
+    private static String SETVAL_SQL = "SELECT setval('contact_id_seq', (SELECT MAX(id) FROM contact)-1)";
     private static String DELETE__ALL = "delete from com.phonebook.model.Contact";
 
     private Session currentSession;

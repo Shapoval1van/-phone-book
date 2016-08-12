@@ -23,7 +23,7 @@ public class AddressDaoImpl implements AddressDao {
     private static final Logger LOG = Logger.getLogger(AddressDao.class);
     private static final String FIND_ALL = "from com.phonebook.model.Address";
     private static final String DELETE__ALL = "delete from com.phonebook.model.Address";
-    private static final String SETVAL_SQL = "SELECT setval('address_id_seq', (SELECT MAX(id) FROM address))";
+    private static final String SETVAL_SQL = "SELECT setval('address_id_seq', (SELECT MAX(id) FROM address)-1)";
     private static final String FIND_BY_FORM_DATA = "from com.phonebook.model.Address as A " +
             "where A.countryName = :country and"+
             " ((A.cityName is null  and :city is null) or A.cityName = :city) and" +

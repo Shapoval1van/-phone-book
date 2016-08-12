@@ -98,3 +98,9 @@
 .error-text{
     color: red;
 }
+
+.delete{
+    float: right;
+    height: 25px;
+    width: 25px;
+}

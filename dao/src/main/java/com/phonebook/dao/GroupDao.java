@@ -11,9 +11,9 @@ public interface GroupDao {
 
     public void update(Group group);
 
-    public Group findById(int id);
+    public Group findById(int id) throws DataBaseException;
 
-    public void delete(Group group);
+    public void delete(Group group) throws DataBaseException;
 
     public Set<Group> findAll();
 

@@ -40,11 +40,27 @@ public class GroupServiceImpl implements GroupService{
     }
 
     public Group findById(int id) {
-        return null;
+        try {
+            groupDao.openSessionWithTransaction();
+            Group group = groupDao.findById(id);
+            groupDao.closeSessionWithTransaction();
+            return group;
+        }catch (DataBaseException e){
+            groupDao.getCurrentTransaction().rollback();
+            groupDao.closeSessionWithTransaction();
+            return null;
+        }
     }
 
-    public void delete(Group lang) {
-
+    public void delete(Group group) {
+        try {
+            groupDao.openSessionWithTransaction();
+            groupDao.delete(group);
+            groupDao.closeSessionWithTransaction();
+        }catch (DataBaseException e){
+            groupDao.getCurrentTransaction().rollback();
+            groupDao.closeSessionWithTransaction();
+        }
     }
 
     public Set<Group> findAll() {

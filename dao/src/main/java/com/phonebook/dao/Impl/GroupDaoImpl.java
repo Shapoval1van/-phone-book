@@ -9,7 +9,9 @@ import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.query.NativeQuery;
 import org.hibernate.query.Query;
+import org.hibernate.type.StandardBasicTypes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.stereotype.Repository;
@@ -21,6 +23,7 @@ import java.util.Set;
 public class GroupDaoImpl implements GroupDao{
     private final String GET_GROUP_BY_USER_ID = "from Group g where g.creator.id = :id or g.isDefault = true";
     private static final Logger LOG = Logger.getLogger(ContactDao.class);
+    private static String SETVAL_SQL = "SELECT setval('group_c_id_seq', (SELECT MAX(id) FROM group_c)-1)";
     private Session currentSession;
     private Transaction currentTransaction;
     private SessionFactory sessionFactory;
@@ -88,12 +91,26 @@ public class GroupDaoImpl implements GroupDao{
 
     }
 
-    public Group findById(int id) {
-        return null;
+    public Group findById(int id) throws DataBaseException {
+        if(getCurrentSession()!=null) {
+            return getCurrentSession().get(Group.class, id);
+        }
+        else {
+            LOG.error("Session does not opened");
+            throw new DataBaseException("Session does not opened");
+        }
     }
 
-    public void delete(Group contact) {
-
+    public void delete(Group contact) throws DataBaseException {
+        if(getCurrentSession()!=null) {
+            getCurrentSession().delete(contact);
+            NativeQuery setMaxVal = getCurrentSession().createNativeQuery(SETVAL_SQL).addScalar("setval", StandardBasicTypes.INTEGER);
+            setMaxVal.uniqueResult();
+        }
+        else {
+            LOG.error("Session does not opened");
+            throw new DataBaseException("Session does not opened");
+        }
     }
 
     public Set<Group> findAll() {
