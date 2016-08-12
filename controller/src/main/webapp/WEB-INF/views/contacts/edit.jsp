@@ -115,7 +115,7 @@
                             <label for="streets" class="col-sm-3  col-lg-2 control-label">${group}</label>
                             <div class="col-sm-9 col-lg-10">
                                 <form:select cssClass="form-control input-lg" path="group.id">
-                                    <form:option  value="" label="  "/>
+                                    <form:option  value="" label="----"/>
                                     <form:options items="${groups}" itemValue="id" itemLabel="groupName"/>
                                 </form:select>
                                 <%--<form:input path="group.groupName" type="text" name="streets" id="streets"

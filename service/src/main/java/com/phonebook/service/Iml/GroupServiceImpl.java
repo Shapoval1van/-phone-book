@@ -24,8 +24,15 @@ public class GroupServiceImpl implements GroupService{
 
 
 
-    public void persist(Group lang) {
-
+    public void persist(Group group) {
+        try {
+            groupDao.openSessionWithTransaction();
+            groupDao.persist(group);
+            groupDao.closeSessionWithTransaction();
+        }catch (DataBaseException e){
+            groupDao.getCurrentTransaction().rollback();
+            groupDao.closeSessionWithTransaction();
+        }
     }
 
     public void update(Group lang) {

@@ -22,7 +22,7 @@
                             <c:forEach items="${groups}" var="group">
                                 <li><a href="#" class="list-group-item">${group.getGroupName()}</a></li>
                             </c:forEach>
-                            <li><a class="list-group-item" href="#"><spring:message code="list.addGroup"/></a></li>
+                            <li><a class="list-group-item" href="/create-group"><spring:message code="list.addGroup"/></a></li>
                         </ul>
                     </div>
                 </div>

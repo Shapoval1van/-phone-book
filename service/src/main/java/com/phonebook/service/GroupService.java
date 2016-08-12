@@ -7,13 +7,13 @@ import java.util.List;
 import java.util.Set;
 
 public interface GroupService {
-    public void persist(Group lang);
+    public void persist(Group group);
 
-    public void update(Group lang);
+    public void update(Group group);
 
     public Group findById(int id);
 
-    public void delete(Group lang);
+    public void delete(Group group);
 
     public Set<Group> findAll();
 

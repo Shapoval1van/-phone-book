@@ -7,13 +7,13 @@ import java.util.List;
 import java.util.Set;
 
 public interface GroupDao {
-    public void persist(Group contact);
+    public void persist(Group group) throws DataBaseException;
 
-    public void update(Group contact);
+    public void update(Group group);
 
     public Group findById(int id);
 
-    public void delete(Group contact);
+    public void delete(Group group);
 
     public Set<Group> findAll();
 

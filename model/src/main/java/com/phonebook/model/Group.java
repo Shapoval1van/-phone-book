@@ -1,13 +1,16 @@
 package com.phonebook.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name ="group_c")
-public class Group {
+public class  Group  implements Serializable {
+
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "group_c_id_seq")
+    @SequenceGenerator(name = "group_c_id_seq",sequenceName = "group_c_id_seq", allocationSize=1 )
     private Integer id;
 
     @Column(name = "group_name")
@@ -44,7 +47,7 @@ public class Group {
     }
 
     public void setGroupName(String groupName) {
-        groupName = groupName;
+        this.groupName = groupName;
     }
 
     public Boolean getDefault() {
@@ -53,13 +56,5 @@ public class Group {
 
     public void setDefault(Boolean aDefault) {
         isDefault = aDefault;
-    }
-
-    public User getCreatedBy() {
-        return creator;
-    }
-
-    public void setCreatedBy(User createdBy) {
-        this.creator = createdBy;
     }
 }

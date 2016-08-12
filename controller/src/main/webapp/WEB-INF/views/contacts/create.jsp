@@ -109,18 +109,15 @@
                             <label for="streets" class="col-sm-3  col-lg-2 control-label">${group}</label>
                             <div class="col-sm-9 col-lg-10">
                                 <form:select cssClass="form-control input-lg" path="group.id">
-                                    <form:option  value="" label="  "/>
+                                    <form:option  value="" label="---"/>
                                     <form:options items="${groups}" itemValue="id" itemLabel="groupName"/>
                                 </form:select>
-                                    <%--<form:input path="group.groupName" type="text" name="streets" id="streets"
-                                                cssClass="form-control input-lg" placeholder="${streets}" tabindex="8" />--%>
                             </div>
                         </div>
                     </spring:bind>
                     <div class="row">
                         <spring:message code="create.button" var="edit"/>
-                            <%--<div class="col-xs-6 col-md-6"><a href="/login" class="btn btn-primary btn-block btn-lg"><spring:message code="reg.button"/></a></div>--%>
-                        <div ><input type="submit" value="${edit}" class="btn btn-success btn-block btn-lg" tabindex="8"></div>
+                        <div><input type="submit" value="${edit}" class="btn btn-success btn-block btn-lg" tabindex="8"></div>
                     </div>
                 </form:form>
             </div>

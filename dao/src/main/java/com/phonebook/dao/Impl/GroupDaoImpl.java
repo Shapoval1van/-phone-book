@@ -75,8 +75,13 @@ public class GroupDaoImpl implements GroupDao{
         return currentSession;
     }
 
-    public void persist(Group contact) {
-
+    public void persist(Group contact) throws DataBaseException{
+        if (getCurrentSession() != null) {
+            getCurrentSession().save(contact);
+        } else {
+            LOG.error("Session does not opened");
+            throw new DataBaseException("Session does not opened");
+        }
     }
 
     public void update(Group contact) {
