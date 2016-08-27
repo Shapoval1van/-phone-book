@@ -3,6 +3,7 @@ package com.phonebook.service.Iml;
 
 import com.phonebook.dao.DataBaseException;
 import com.phonebook.dao.Impl.GroupDaoImpl;
+import com.phonebook.model.Contact;
 import com.phonebook.model.Group;
 import com.phonebook.service.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,7 @@ public class GroupServiceImpl implements GroupService{
             groupDao.closeSessionWithTransaction();
         }catch (DataBaseException e){
             groupDao.getCurrentTransaction().rollback();
-            groupDao.closeSessionWithTransaction();
+            groupDao.closeCurrentSession();
         }
     }
 
@@ -59,7 +60,7 @@ public class GroupServiceImpl implements GroupService{
             groupDao.closeSessionWithTransaction();
         }catch (DataBaseException e){
             groupDao.getCurrentTransaction().rollback();
-            groupDao.closeSessionWithTransaction();
+            groupDao.closeCurrentSession();
         }
     }
 
@@ -79,8 +80,34 @@ public class GroupServiceImpl implements GroupService{
             return groups;
         }catch (DataBaseException e){
             groupDao.getCurrentTransaction().rollback();
-            groupDao.closeSessionWithTransaction();
+            groupDao.closeCurrentSession();
             return null;
+        }
+    }
+
+    @Override
+    public Set<Contact> findContactsByGroupId(int id) {
+        try {
+            groupDao.openSessionWithTransaction();
+            Set<Contact> contacts = groupDao.findContactsByGroup(id);
+            groupDao.closeSessionWithTransaction();
+            return contacts;
+        }catch (DataBaseException e){
+            groupDao.getCurrentTransaction().rollback();
+            groupDao.closeCurrentSession();
+            return null;
+        }
+    }
+
+    @Override
+    public void deleteContactsByGroupId(int id) {
+        try {
+            groupDao.openSessionWithTransaction();
+            groupDao.deleteAllContactsByGroupId(id);
+            groupDao.closeSessionWithTransaction();
+        }catch (DataBaseException e){
+            groupDao.getCurrentTransaction().rollback();
+            groupDao.closeCurrentSession();
         }
     }
 }

@@ -27,6 +27,10 @@ public class Address implements Serializable{
     public Address() {
     }
 
+    public Address(int id) {
+        this.id = id;
+    }
+
     public Address(int i, String countryName) {
         this.id = i;
         this.countryName = countryName;

@@ -4,6 +4,7 @@ package com.phonebook.dao.Impl;
 import com.phonebook.dao.ContactDao;
 import com.phonebook.dao.DataBaseException;
 import com.phonebook.dao.GroupDao;
+import com.phonebook.model.Contact;
 import com.phonebook.model.Group;
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
@@ -18,10 +19,13 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 @Repository
 public class GroupDaoImpl implements GroupDao{
     private final String GET_GROUP_BY_USER_ID = "from Group g where g.creator.id = :id or g.isDefault = true";
+    private final String DELETE_CONTACTS_BY_GROUP_ID = "delete from Contact c where c.group.id =:id";
+    private final String GET_CONTACTS_BY_GROUP_ID = "from Contact c where c.group.id = :id";
     private static final Logger LOG = Logger.getLogger(ContactDao.class);
     private static String SETVAL_SQL = "SELECT setval('group_c_id_seq', (SELECT MAX(id) FROM group_c)-1)";
     private Session currentSession;
@@ -101,9 +105,9 @@ public class GroupDaoImpl implements GroupDao{
         }
     }
 
-    public void delete(Group contact) throws DataBaseException {
+    public void delete(Group group) throws DataBaseException {
         if(getCurrentSession()!=null) {
-            getCurrentSession().delete(contact);
+            getCurrentSession().delete(group);
             NativeQuery setMaxVal = getCurrentSession().createNativeQuery(SETVAL_SQL).addScalar("setval", StandardBasicTypes.INTEGER);
             setMaxVal.uniqueResult();
         }
@@ -130,5 +134,36 @@ public class GroupDaoImpl implements GroupDao{
             LOG.error("Session does not opened");
             throw new DataBaseException("Session does not opened");
         }
+    }
+
+    public Set<Contact> findContactsByGroup(int id) throws DataBaseException{
+        Set<Contact> contacts = new TreeSet<>((Contact c1, Contact c2)->
+                c1.getFirstName().compareTo(c2.getFirstName())
+        );
+        if (getCurrentSession() != null) {
+            Query query = getCurrentSession().createQuery(GET_CONTACTS_BY_GROUP_ID);
+            query.setParameter("id",id);
+            contacts.addAll(query.list());
+            return contacts;
+        } else {
+            LOG.error("Session does not opened");
+            throw new DataBaseException("Session does not opened");
+        }
+    }
+
+    @Override
+    public void deleteAllContactsByGroupId(int id) throws DataBaseException {
+        if(getCurrentSession()!=null) {
+            Query deleteContacts = getCurrentSession().createQuery(DELETE_CONTACTS_BY_GROUP_ID);
+            deleteContacts.setParameter("id",id);
+            deleteContacts.executeUpdate();
+            NativeQuery setMaxVal = getCurrentSession().createNativeQuery(SETVAL_SQL).addScalar("setval", StandardBasicTypes.INTEGER);
+            setMaxVal.uniqueResult();
+        }
+        else {
+            LOG.error("Session does not opened");
+            throw new DataBaseException("Session does not opened");
+        }
+
     }
 }

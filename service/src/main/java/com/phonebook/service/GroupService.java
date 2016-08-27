@@ -1,6 +1,7 @@
 package com.phonebook.service;
 
 
+import com.phonebook.model.Contact;
 import com.phonebook.model.Group;
 
 import java.util.List;
@@ -20,4 +21,8 @@ public interface GroupService {
     public void deleteAll();
 
     public List<Group> findByUserId(int id);
+
+    public Set<Contact> findContactsByGroupId(int id);
+
+    public void deleteContactsByGroupId(int id);
 }

@@ -10,26 +10,13 @@
 <title>${title}</title>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css"/>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/style.css"/>
-<%--<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/style.css"/>--%>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery-3.1.0.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
-<%--<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/app.js"></script>--%>
-<%--<script>--%>
-    <%--$(document).ready(function() {--%>
-        <%--var pathname = window.location.pathname;--%>
-        <%--$("nav").on("click", function () {--%>
-            <%--$("nav").removeClass("active");--%>
-            <%--$('.nav > li > a[href="'+pathname+'"]').parent().addClass('active');--%>
-        <%--});--%>
-        <%--$('.nav > li > a[href="'+pathname+'"]').parent().addClass('active');--%>
-    <%--});--%>
-<%--</script>--%>
 </head>
 <body>
     <div >
         <nav class="navbar navbar-inverse">
             <div class="container">
-                <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
                         <span class="sr-only">Toggle navigation</span>
@@ -39,8 +26,6 @@
                     </button>
                     <a class="navbar-brand" href="${pageContext.request.contextPath}/">Jc</a>
                 </div>
-
-                <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav col-md-3 col-xs-offset-6">
                         <li><a href="${pageContext.request.contextPath}/contact"><spring:message code="navbar.contact"/></a></li>
@@ -49,8 +34,8 @@
                         <c:url value="/j_spring_security_logout" var="logoutUrl" />
                         <li><a id="exit" href="<c:url value="${logoutUrl}" />"><spring:message code="navbar.exit"/></a></li>
                     </ul>
-                </div><!-- /.navbar-collapse -->
-            </div><!-- /.container-fluid -->
+                </div>
+            </div>
         </nav>
     </div>
     <jsp:invoke fragment="bodyLayout"/>

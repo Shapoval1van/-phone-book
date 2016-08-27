@@ -118,8 +118,6 @@
                                     <form:option  value="" label="----"/>
                                     <form:options items="${groups}" itemValue="id" itemLabel="groupName"/>
                                 </form:select>
-                                <%--<form:input path="group.groupName" type="text" name="streets" id="streets"
-                                            cssClass="form-control input-lg" placeholder="${streets}" tabindex="8" />--%>
                             </div>
                         </div>
                     </spring:bind>
@@ -135,7 +133,6 @@
                     </script>
                     <div class="row">
                         <spring:message code="contact.show.edit" var="edit"/>
-                        <%--<div class="col-xs-6 col-md-6"><a href="/login" class="btn btn-primary btn-block btn-lg"><spring:message code="reg.button"/></a></div>--%>
                         <div ><input type="submit" value="${edit}" class="btn btn-success btn-block btn-lg" tabindex="8"></div>
                     </div>
                 </form:form>

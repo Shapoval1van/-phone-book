@@ -69,11 +69,14 @@ public class ContactController {
 
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(method = RequestMethod.GET)
-    public String getContactsList(Model model, Principal principal){
+    public String getContactsList(Model model, String error, Principal principal){
         User user = userService.findUserByUsername(principal.getName());
         Set<Contact> contacts = contactService.findAllByCteator(user);
+        if (error != null){
+            model.addAttribute("error",true);
+        }
         model.addAttribute("contacts",contacts);
-        model.addAttribute("groups",groupService.findByUserId(1));
+        model.addAttribute("groups",groupService.findByUserId(user.getId()));
         return "contacts/list";
     }
     
@@ -130,7 +133,6 @@ public class ContactController {
             }
             contact.setCreator(oldContact.getCreator());
             contact.setDateCreating(new Date(System.currentTimeMillis()));
-//            contact.setGroup(groupService.findById(contact.getGroup().getId()));
             if(contact.getGroup().getId()==null){
                 contact.setGroup(null);
             }

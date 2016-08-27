@@ -58,11 +58,28 @@ public class GroupController {
                                 final RedirectAttributes redirectAttributes){
         User user = userService.findUserByUsername(principal.getName());
         Group group = groupService.findById(id);
+        if(groupService.findContactsByGroupId(group.getId()).size() != 0){
+            redirectAttributes.addAttribute("delete",group.getId());
+            return "redirect:/contact";
+        }
         if(group == null || group.getDefault() || group.getCreator().getId() != user.getId()){
             return "redirect:/contact";
         }else {
             groupService.delete(group);
             return "redirect:/contact";
         }
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @RequestMapping(value = "/delete-id{id}-all", method = RequestMethod.GET)
+    public String deleteAllForContact(@PathVariable("id") int id, Model model, Principal principal,
+                                final RedirectAttributes redirectAttributes){
+        User user = userService.findUserByUsername(principal.getName());
+        if(groupService.findContactsByGroupId(id).size() != 0){
+            groupService.deleteContactsByGroupId(id);
+            groupService.delete(new Group(id));
+            return "redirect:/contact";
+        }
+        return "redirect:/contact";
     }
 }

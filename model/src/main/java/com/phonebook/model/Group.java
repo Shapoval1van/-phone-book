@@ -26,6 +26,11 @@ public class  Group  implements Serializable {
     public Group() {
     }
 
+    public Group(int id) {
+    this.id = id;
+    }
+
+
     public User getCreator() {
         return creator;
     }

@@ -1,6 +1,7 @@
 package com.phonebook.dao;
 
 
+import com.phonebook.model.Contact;
 import com.phonebook.model.Group;
 
 import java.util.List;
@@ -21,4 +22,7 @@ public interface GroupDao {
 
     public List findAllByUserId(int id) throws DataBaseException;
 
+    public Set<Contact> findContactsByGroup(int id) throws DataBaseException;
+
+    public void deleteAllContactsByGroupId(int id)throws DataBaseException;
 }

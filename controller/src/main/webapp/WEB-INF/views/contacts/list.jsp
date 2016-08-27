@@ -8,6 +8,26 @@
 <spring:message code="title.contacts" var="contact_title"/>
 <t:pageLayout title="${contact_title}">
     <jsp:attribute name="bodyLayout">
+        <div id="myModal" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header"><button class="close" type="button" data-dismiss="modal">×</button>
+                        <h4 class="modal-title"><spring:message code="group.delete"/></h4>
+                    </div>
+                    <div class="modal-body"><spring:message code="group.promp"/> </div>
+                    <div class="modal-footer"><a class="btn btn-default" href="/delete-id${param.delete}-all"
+                                                 type="button"><spring:message code="group.yes"/></a></div>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript">
+            var hasParam = window.location.href.indexOf('delete');
+            if(hasParam!=-1) {
+                $('#myModal').modal('show');
+            } else {
+                $('#myModal').modal('hide');
+            }
+        </script>
         <div class="container" id="main">
             <div class="col-xs-offset-11">
                 <a class="btn btn-primary" href="/contact/create"><spring:message code="list.button"/></a>
