@@ -8,6 +8,7 @@ http://www.springframework.org/schema/security
 http://www.springframework.org/schema/security/spring-security.xsd">
     <http authentication-manager-ref="dao-auth"
             use-expressions = "true">
+        <intercept-url pattern="/login/* ,/login" access="hasRole('ROLE_ANONYMOUS')" />
         <intercept-url pattern = '/*' access = 'permitAll'/>
         <form-login
                     login-page="/login"

@@ -86,10 +86,10 @@ public class GroupServiceImpl implements GroupService{
     }
 
     @Override
-    public Set<Contact> findContactsByGroupId(int id) {
+    public Set<Contact> findContactsByGroupId(int id, int creatorId) {
         try {
             groupDao.openSessionWithTransaction();
-            Set<Contact> contacts = groupDao.findContactsByGroup(id);
+            Set<Contact> contacts = groupDao.findContactsByGroup(id, creatorId);
             groupDao.closeSessionWithTransaction();
             return contacts;
         }catch (DataBaseException e){

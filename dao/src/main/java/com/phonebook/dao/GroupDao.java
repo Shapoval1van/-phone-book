@@ -22,7 +22,7 @@ public interface GroupDao {
 
     public List findAllByUserId(int id) throws DataBaseException;
 
-    public Set<Contact> findContactsByGroup(int id) throws DataBaseException;
+    public Set<Contact> findContactsByGroup(int id, int creatorId) throws DataBaseException;
 
     public void deleteAllContactsByGroupId(int id)throws DataBaseException;
 }

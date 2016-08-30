@@ -1,5 +1,7 @@
 package com.phonebook.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Set;
@@ -14,6 +16,7 @@ public class User implements Serializable {
     @SequenceGenerator(name = "person_id_seq",sequenceName = "person_id_seq",allocationSize=1 )
     private Integer id;
 
+    @JsonIgnore
     @OneToOne
     @JoinColumn(name = "lang_id", referencedColumnName = "id")
     private Lang lang;
@@ -27,9 +30,11 @@ public class User implements Serializable {
     @Column(name = "user_password", nullable = false)
     private String password;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "creator")
     private Set<Contact> contact;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "creator")
     private Set<Group> group;
 

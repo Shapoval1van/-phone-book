@@ -25,7 +25,7 @@ import java.util.TreeSet;
 public class GroupDaoImpl implements GroupDao{
     private final String GET_GROUP_BY_USER_ID = "from Group g where g.creator.id = :id or g.isDefault = true";
     private final String DELETE_CONTACTS_BY_GROUP_ID = "delete from Contact c where c.group.id =:id";
-    private final String GET_CONTACTS_BY_GROUP_ID = "from Contact c where c.group.id = :id";
+    private final String GET_CONTACTS_BY_GROUP_ID = "from Contact c where c.group.id = :id and c.creator.id = :creatorId";
     private static final Logger LOG = Logger.getLogger(ContactDao.class);
     private static String SETVAL_SQL = "SELECT setval('group_c_id_seq', (SELECT MAX(id) FROM group_c)-1)";
     private Session currentSession;
@@ -136,13 +136,14 @@ public class GroupDaoImpl implements GroupDao{
         }
     }
 
-    public Set<Contact> findContactsByGroup(int id) throws DataBaseException{
+    public Set<Contact> findContactsByGroup(int id, int creatorId) throws DataBaseException{
         Set<Contact> contacts = new TreeSet<>((Contact c1, Contact c2)->
                 c1.getFirstName().compareTo(c2.getFirstName())
         );
         if (getCurrentSession() != null) {
             Query query = getCurrentSession().createQuery(GET_CONTACTS_BY_GROUP_ID);
             query.setParameter("id",id);
+            query.setParameter("creatorId", creatorId);
             contacts.addAll(query.list());
             return contacts;
         } else {

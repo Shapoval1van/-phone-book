@@ -1,5 +1,6 @@
 package com.phonebook.controller;
 
+import com.phonebook.model.Contact;
 import com.phonebook.model.Group;
 import com.phonebook.model.User;
 import com.phonebook.service.Iml.GroupServiceImpl;
@@ -9,13 +10,11 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
+import java.util.Set;
 
 @Controller
 public class GroupController {
@@ -58,7 +57,7 @@ public class GroupController {
                                 final RedirectAttributes redirectAttributes){
         User user = userService.findUserByUsername(principal.getName());
         Group group = groupService.findById(id);
-        if(groupService.findContactsByGroupId(group.getId()).size() != 0){
+        if(groupService.findContactsByGroupId(group.getId(), user.getId()).size() != 0){
             redirectAttributes.addAttribute("delete",group.getId());
             return "redirect:/contact";
         }
@@ -75,11 +74,19 @@ public class GroupController {
     public String deleteAllForContact(@PathVariable("id") int id, Model model, Principal principal,
                                 final RedirectAttributes redirectAttributes){
         User user = userService.findUserByUsername(principal.getName());
-        if(groupService.findContactsByGroupId(id).size() != 0){
+        if(groupService.findContactsByGroupId(id, user.getId()).size() != 0){
             groupService.deleteContactsByGroupId(id);
             groupService.delete(new Group(id));
             return "redirect:/contact";
         }
         return "redirect:/contact";
+    }
+
+//    @PreAuthorize("isAuthenticated()")
+    @RequestMapping(value = "/get-contacts-for-id", method = RequestMethod.GET)
+    @ResponseBody
+    public Set<Contact> getContactsForGroups(@RequestParam int id, Principal principal){
+        User user = userService.findUserByUsername(principal.getName());
+        return groupService.findContactsByGroupId(id, user.getId());
     }
 }

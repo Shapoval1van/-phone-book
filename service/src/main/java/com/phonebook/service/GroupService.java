@@ -22,7 +22,7 @@ public interface GroupService {
 
     public List<Group> findByUserId(int id);
 
-    public Set<Contact> findContactsByGroupId(int id);
+    public Set<Contact> findContactsByGroupId(int id, int creatorId);
 
     public void deleteContactsByGroupId(int id);
 }

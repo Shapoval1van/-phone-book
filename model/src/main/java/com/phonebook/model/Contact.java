@@ -1,5 +1,7 @@
 package com.phonebook.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -17,6 +19,7 @@ public class Contact implements Serializable {
     @JoinColumn(name = "address", nullable = true, referencedColumnName = "id")
     private Address address;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "creator_id", referencedColumnName = "id")
     private User creator;
@@ -36,6 +39,7 @@ public class Contact implements Serializable {
     @Column(name = "email")
     private String email;
 
+    @JsonIgnore
     @Column(name = "date_creating")
     private Date dateCreating;
 
